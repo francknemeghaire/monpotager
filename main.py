@@ -51,6 +51,7 @@ class MainWindow(QMainWindow):
     def testvaleur(self, s):
         fonctions.testchoixmenu(s)
 
+
 app = QApplication(sys.argv)
 
 window = MainWindow()
