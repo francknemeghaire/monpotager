@@ -1,0 +1,998 @@
+
+<!--[if HTML5]><![endif]-->
+<!DOCTYPE html>
+<!--[if lt IE 7]><html lang="fr" class="no-js lt-ie9 lt-ie8 lt-ie7"></html><![endif]-->
+<!--[if IE 7]><html lang="fr" class="no-js lt-ie9 lt-ie8"></html><![endif]-->
+<!--[if IE 8]><html lang="fr" class="no-js lt-ie9"></html><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="fr" class="no-js">
+<!--<![endif]-->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Mes proc&#233;dures de screening</title>
+    <link href="/Content/themes/base/jqueryui?v=UGQth8Uhl6GYswyFbGIncmgEnYdpUggDkrKcWM9hnMY1" rel="stylesheet"/>
+
+    <script src="/bundles/jquery?v=ptYxNVSTIQQ9WtNGHhavnRsI4HidMfwHFvo7x7j37H81"></script>
+<script src="/bundles/jqueryui?v=UKf7kED2s8Fvzla2wSeNdFXqAvKM90JeKcgf3dYRRZw1"></script>
+<script src="/bundles/globalization?v=eJ4ZFyAmFwtEqfjShWkg-baRaCsgfbK0S_Ljf2gZz081"></script>
+<script src="/bundles/datatables?v=AHJhhtIFrWGA3qklrSX90lUTcdmP3n3prJ3-E-nI2yI1"></script>
+<script src="/bundles/jqueryval?v=fUFNBWhZJLQ48aVk3Om8n6OG0TZMRLn6shCgL6jErT01"></script>
+<script src="/bundles/markdowndeep?v=JxxBayoYvJC0WysplRVDHZlDpoHQD7iCj3meIgYdfF81"></script>
+<script src="/bundles/site?v=S5bholeUWHH1_rkP7Icoyfol3O2GJL47MuNML6f6RFQ1"></script>
+
+    <script src="/bundles/modernizr?v=jyQn7piRz0BJwCKi6VJnLaEw2NBUFINwZqCmNehM6Uw1"></script>
+
+    <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+    <script src="/Scripts/custom_checkbox_and_radio.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.slicknav.min.js"></script>
+    <script src="/scripts/jquery.matchHeight.min.js"></script>
+    <script src="/scripts/scripts.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/Content/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Content/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Content/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/Content/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/Content/images/favicon/safari-pinned-tab.svg" color="#000000">
+    <link rel="shortcut icon" href="/Content/images/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/Content/images/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="/Content/Styles/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Styles/shared.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Styles/account.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Styles/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Styles/custompopup.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Styles/print.css" rel="stylesheet" type="text/css" media="print" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/Scripts/ie8/html5shiv.js"></script>
+        <script type="text/javascript" src="/Scripts/ie8/respond.min.js"></script>
+        <script type="text/javascript" src="/Scripts/ie8/OldIE.js"></script>
+    <![endif]-->
+        <script type="text/javascript">
+            //<![CDATA[
+            $(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetPopUp",
+                    data: '{lg:"' + "fr" + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnPopUpPopulated,
+                    error: function (httpRequest, textStatus, errorThrown) {
+                        if (xmlHttpRequest.readyState == 0 || xmlHttpRequest.status == 0)
+                            return;
+                        else
+                            alert("popupstatus=" + textStatus + ",error=" + errorThrown);
+                    }
+                });
+            });
+
+            function OnPopUpPopulated(response) {
+                if (response != "") {
+                    $("#CVPopup").dialog({
+                        modal: true,
+                        draggable: false,
+                        width: '500',
+                        dialogClass: "cv-warning-dialog",
+                        buttons: [{
+                            text: "OK",
+                            click: function () {
+                                OnPopUpClosed(response.Id);
+                                $(this).dialog("close");
+                            }
+                        }]
+                    });
+
+                    $("#PopUpContent").html(response.Content);
+
+                    $(".cv-warning-dialog .ui-dialog-buttonset button").addClass("btn btn-primary");
+
+                    $(window).resize(function () {
+                        $("#CVPopup").dialog("option", "position", "center");
+                    });
+                }
+            }
+
+            function OnPopUpClosed(id) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/ClosePopUp",
+                    data: '{id:"' + id + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                });
+            }
+
+    function OnDeactivateAccountConfirmed() {
+        $("#DeactivateMyAccountConfirmationCloseButton").attr('disabled', '');
+        $("#DeactivateMyAccountConfirmationBodyMessage").empty();
+        $("#DeactivateMyAccountConfirmationCancelButton").attr('disabled', '');
+        $("#DeactivateMyAccountConfirmationConfirmButton").attr('disabled', '');
+        $("#DeactivateMyAccountConfirmationBodyLoaderMessage").show();
+        $("#DeactivateMyAccountConfirmationBodyLoader").show();
+
+        $.ajax({
+            // Obviously http put not supported
+            type: "POST",
+            url: "/MyAssessments/AccountManagement/Deactivate",
+            //data: '{id:"' + id + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            OnAccountDeactivatedResponseReceived();
+            if (!data.Success) {
+                $("#DeactivateMyAccountErrorIcon").show();
+                $("#DeactivateMyAccountErrorMessage").show();
+            }
+            else {
+                $("#DeactivateMyAccountSuccessIcon").show();
+                $("#DeactivateMyAccountSuccessMessage").show();
+            }
+        });
+    }
+
+    function OnDeleteAccountConfirmed() {
+        $("#DeleteMyAccountConfirmationCloseButton").attr('disabled', '');
+        $("#DeleteMyAccountConfirmationBodyMessage").empty();
+        $("#DeleteMyAccountConfirmationCancelButton").attr('disabled', '');
+        $("#DeleteMyAccountConfirmationConfirmButton").attr('disabled', '');
+        $("#DeleteMyAccountConfirmationBodyLoaderMessage").show();
+        $("#DeleteMyAccountConfirmationBodyLoader").show();
+
+        $.ajax({
+            //Obviously http delete not supported
+            type: "POST",
+            url: "/MyAssessments/AccountManagement/Delete",
+            //data: '{id:"' + id + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            OnAccountDeletedResponseReceived();
+            if (!data.Success) {
+                $("#DeleteMyAccountErrorIcon").show();
+                $("#DeleteMyAccountErrorMessage").show();
+            }
+            else {
+                $("#DeleteMyAccountSuccessIcon").show();
+                $("#DeleteMyAccountSuccessMessage").show();
+            }
+        });
+    }
+
+    function OnAccountDeletedResponseReceived() {
+        $("#DeleteMyAccountConfirmationBackToHomePageButton").show();
+        $("#DeleteMyAccountConfirmationBodyLoaderMessage").hide();
+        $("#DeleteMyAccountConfirmationBodyLoader").hide();
+        $("#DeleteMyAccountConfirmationCancelButton").hide();
+        $("#DeleteMyAccountConfirmationConfirmButton").hide();
+        $("#DeleteMyAccountConfirmationCloseButton").hide();
+    }
+
+    function OnAccountDeactivatedResponseReceived() {
+        $("#DeactivateMyAccountConfirmationBackToHomePageButton").show();
+        $("#DeactivateMyAccountConfirmationBodyLoaderMessage").hide();
+        $("#DeactivateMyAccountConfirmationBodyLoader").hide();
+        $("#DeactivateMyAccountConfirmationCancelButton").hide();
+        $("#DeactivateMyAccountConfirmationConfirmButton").hide();
+        $("#DeactivateMyAccountConfirmationCloseButton").hide();
+    }
+
+    function RedirectToLoginPage() {
+        window.location.href = "/MyAssessments/Account/Logon";
+        window.location.replace("/MyAssessments/Account/Logon");
+        RemoveAuthenticationCookie();
+    }
+
+    function RemoveAuthenticationCookie() {
+        var cookies = $.cookie();
+        var cookieNames = Object.keys(cookies);
+
+        for (var i = 0; i < cookieNames.length; i++) {
+            if (cookieNames[i].startsWith('b2c')) {
+                $.cookie(cookieNames[i], '', { path: '/' });
+            }
+        }
+    }
+            //]]>
+        </script>
+
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = 'https://belgium.matomo.cloud/';
+
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '71']);
+            _paq.push(['requireCookieConsent']);
+
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.async = true; g.src = '//cdn.matomo.cloud/belgium.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+    
+</head>
+<body>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WJTSXN"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WJTSXN');
+    </script>
+    <div id="OldIEPopup" style="display: none;">
+	<h2>Votre navigateur n’est plus à jour ?</h2> <p> Vous visitez notre site web avec une ancienne version de Microsoft Internet Explorer (version 8 ou antérieure). Afin de consulter travaillerpour.be (et d’autres sites web) le plus efficacement possible, nous vous conseillons d’installer une version plus récente. L’installation est gratuite. Installez la version la plus récente de Microsoft Internet Explorer (version 11). Vous aurez ainsi plus facile à visiter notre site (et d’autres sites). </p>
+	<p>
+        Téléchargez la version la plus récente d’Internet Explorer. Le navigateur s’ouvre dans une nouvelle fenêtre. Cliquez sur « Téléchargez Internet Explorer 11 » et suivez les instructions sur le site de Microsoft. Téléchargez la version la plus récente ici :  
+	    <a class="to-microsoft-downloadpage" href="http://windows.microsoft.com/fr-be/internet-explorer/download-ie" target="_blank">Microsoft</a>.
+    </p>
+</div>
+    
+<div id="CVPopup" style="display: none;">
+    <div id="PopUpContent"></div>
+</div>
+
+    
+<div class="modal fade" id="DeactivateAccountPopup" tabindex="-1" role="dialog" aria-labelledby="DeactivateAccountPopup" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title GDPRPopupTitle">Supprimer mon compte</h5>
+                <button id="DeactivateMyAccountConfirmationCloseButton" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-1" style="text-align:left">
+                    <i id="DeactivateMyAccountConfirmationBodyLoader" class="icon-spinner icon-spin icon-large" style="color: #337ab7 !important; height:20px; font-size: 30px; display: none;"></i>
+                </div>
+                <div class="col-md-11" style="text-align:left">
+                    <div id="DeactivateMyAccountConfirmationBodyLoaderMessage" style="display: none;">
+                        
+Nous traitons votre demande, veuillez patienter
+                    </div>
+                </div>
+                <div id="DeactivateMyAccountErrorIcon" class="col-md-1" style="display: none;">
+                    <i class="icon-remove-circle icon-large" style="color: darkred !important; height: 15px; font-size: 15px; vertical-align: bottom;"></i>
+                </div>
+                <div id="DeactivateMyAccountErrorMessage" class="col-md-11" style="display: none;">
+                    <p>Votre demande n&#39;a pas pu &#234;tre execut&#233;e. R&#233;essayez plus tard.</p>
+                </div>
+                <div id="DeactivateMyAccountSuccessIcon" class="col-md-1" style="display: none;">
+                    <i class="icon-check icon-large" style="color: green !important; height: 15px; font-size: 15px; vertical-align: bottom; "></i>
+                </div>
+                <div id="DeactivateMyAccountSuccessMessage" class="col-md-11" style="display: none;">
+                    <p>Nous avons trait&#233; votre demande, vous recevrez une confirmation par email.</p>
+                </div>
+                <div class="col-md-12">
+                    <p id="DeactivateMyAccountConfirmationBodyMessage">Etes-vous s&#251;r de vouloir d&#233;sactiver votre compte?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="DeactivateMyAccountConfirmationBackToHomePageButton" style="display:none" type="button" class="btn btn-primary" data-dismiss="modal" onclick="RedirectToLoginPage()">Retournez &#224; la page d&#39;accueil</button>
+                <button id="DeactivateMyAccountConfirmationCancelButton" type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button id="DeactivateMyAccountConfirmationConfirmButton" type="button" class="btn btn-danger" onclick="OnDeactivateAccountConfirmed()">D&#233;sactiver</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteAccountPopup" tabindex="-1" role="dialog" aria-labelledby="DeleteAccountPopup" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title GDPRPopupTitle">Supprimer mon compte</h5>
+                <button id="DeleteMyAccountConfirmationCloseButton" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-1" style="text-align:left">
+                    <i id="DeleteMyAccountConfirmationBodyLoader" class="icon-spinner icon-spin icon-large" style="color: #337ab7 !important; height:20px; font-size: 30px; display: none;"></i>
+                </div>
+                <div class="col-md-11" style="text-align:left">
+                    <div id="DeleteMyAccountConfirmationBodyLoaderMessage" style="display: none;">
+                        Nous traitons votre demande, veuillez
+                    </div>
+                </div>
+                <div id="DeleteMyAccountErrorIcon" class="col-md-1" style="display: none;">
+                    <i class="icon-remove-circle icon-large" style="color: darkred !important; height: 15px; font-size: 15px; vertical-align: bottom;"></i>
+                </div>
+                <div id="DeleteMyAccountErrorMessage" class="col-md-11" style="display: none;">
+                    <p>Votre demande n&#39;a pas pu &#234;tre execut&#233;e. R&#233;essayez plus tard.</p>
+                </div>
+                <div id="DeleteMyAccountSuccessIcon" class="col-md-1" style="display: none;">
+                    <i class="icon-check icon-large" style="color: green !important; height: 15px; font-size: 15px; vertical-align: bottom; "></i>
+                </div>
+                <div id="DeleteMyAccountSuccessMessage" class="col-md-11" style="display: none;">
+                    <p>Nous avons trait&#233; votre demande, vous recevrez une confirmation par email.</p>
+                </div>
+                <div class="col-md-12">
+                    <p id="DeleteMyAccountConfirmationBodyMessage">Etes-vous s&#251;r de vouloir supprimer votre compte?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="DeleteMyAccountConfirmationBackToHomePageButton" style="display:none" type="button" class="btn btn-primary" data-dismiss="modal" onclick="RedirectToLoginPage()">Retournez &#224; la page d&#39;accueil</button>
+                <button id="DeleteMyAccountConfirmationCancelButton" type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button id="DeleteMyAccountConfirmationConfirmButton" type="button" class="btn btn-danger" onclick="OnDeleteAccountConfirmed()">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="wrap">
+        <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+    
+<div class="belgium-header">
+    <div class="row">
+        <div class="col-xs-4">
+            <ul class="language-nav">
+                <li class="">
+                    <a href="/MyAssessments/SelectionProcedureEnrollAssessment?enrollmentId=1890743&amp;ui_language=nl">NL</a>
+                </li>
+                <li class="active">
+                    <a href="/MyAssessments/SelectionProcedureEnrollAssessment?enrollmentId=1890743&amp;ui_language=fr">FR</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-4 col-xs-offset-4">
+            <div class="back-to-website pull-right">
+                <a href="https://travaillerpour.be/fr" class="btn btn-primary btn-black" target="_blank" 
+                   title="Vers le site web">Vers le site web</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="row">
+        <div class="col-xs-3">
+            <a href="https://travaillerpour.be/fr" class="navbar-brand">
+                    <img src="/Content/img_content/dot be employer logo horizontal FR.svg" alt="Travaillerpour.be Logo" />
+            </a>
+        </div>
+        <div class="col-xs-9">
+            <div class="navbar-actions">
+                <div class="slicknav-container">
+                    <ul class="nav navbar-nav">
+
+
+<li>
+    <a href="/MyTasksAndMessages" role="menuitem" title="Messages et t&#226;ches">
+        <div class="label">Messages et t&#226;ches</div>
+    </a>
+</li>
+<li>
+    <a data-menu="MyCV" href="/mijn-selor/mijn-cv" role="menuitem" title="C.V.">
+        <div class="label">C.V.</div>
+    </a>
+</li>
+<li>
+    <a data-menu="MyLanguageTestsOverview AssessmentEnrollment EnrollAssessment" href="/MyAssessments/MyLanguageTestsOverview" role="menuitem" title="Tests linguistiques">
+         <div class="label">Tests linguistiques</div>
+    </a>
+</li>
+<li>
+    <a data-menu="MySelectionProcedureEnrollments SelectionProcedureEnrollAssessment LaureatesOverview" 
+       href="/MyAssessments/MySelectionProcedureEnrollments" 
+       role="menuitem" title="Proc&#233;dures de screening">
+         <div class="label">Proc&#233;dures de screening</div>
+    </a>
+</li>
+
+<script type="text/javascript">
+    $(function () {
+        var url = window.location.pathname.split('/')[1];
+        if (url == 'nl' || url == 'fr') {
+            url = window.location.pathname.split('/')[3];
+        }
+        if (url) {
+            $('.nav a[href="' + url + '"],.slicknav_nav a[href="' + url + '"]').parents('li').addClass('active');
+            $('.nav a[data-menu~="' + url + '"],.slicknav_nav a[data-menu~="' + url + '"]').parents('li').addClass('active');
+            $('.nav a[href="' + window.location.pathname + '"],.slicknav_nav a[href="' + window.location.pathname + '"]').parents('li').addClass('active');
+            $('.submenu a[href="' + window.location.pathname + '"]').addClass('active');
+        }
+    });
+</script>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+            <div id="main" role="main" class="my-selor">
+                
+<div class="banner with-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                    <h1>Bienvenue , FRANCK</h1>
+                    <a href="/MySettings" class="btn btn-link btn-settings" title="Mes param&#232;tres">
+                        <i class="far fa-fw fa-cog"></i> Mes param&#232;tres
+                    </a>
+                    <a href="/Account/LogOff" class="btn btn-link btn-logoff" title="Se d&#233;connecter">
+                        <i class="far fa-fw fa-sign-out-alt"></i> Se d&#233;connecter
+                    </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="account">
+                                <h2>Mes proc&#233;dures de screening</h2>
+                                
+                                
+<script src="/Scripts/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function () {
+        $('._dialog').dialog({
+            autoOpen: false,
+            hide: 'explode'
+        });
+        $(".confirm").easyconfirm({
+            locale: {
+                title: '*|AreYouSure|fr',
+                button: ['Non', '*|Yes|fr'],
+                closeText: ''
+            }
+        });
+    });
+    //]]>
+</script>
+<script lang="javascript" type="text/javascript">
+    //<![CDATA[
+    function AddRows(enrollmentId, order, procedureId, sessionId, count, enrollmentStartDate, enrollmentEndDate) {
+        ShowDetails(enrollmentId, order, procedureId, sessionId, count, true, enrollmentStartDate, enrollmentEndDate);
+    };
+    function ShowDetails(enrollmentId, order, procedureId, sessionId, count, add, enrollmentStartDate, enrollmentEndDate) {
+        var replaceId = '#showDetails' + order;
+        $(replaceId).load('/MyAssessments/SelectionProcedureEnrollAssessment/GetEvents'
+                , { enrollmentId: enrollmentId, order: order, procedureId: procedureId, sessionId: sessionId, count: count, add: add, enrollmentStartDate: enrollmentStartDate, enrollmentEndDate: enrollmentEndDate }
+                , function (response) {
+                    $(replaceId).replaceWith(response);
+                });
+    };
+    //]]>
+</script>
+<form action="/MyAssessments/SelectionProcedureEnrollAssessment?enrollmentId=1890743" method="post">
+<div>
+<div class="table-responsive">
+     <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row">
+                    Emploi:
+                </th>
+                <td>
+                
+                        <a href="https://travaillerpour.be/fr/job?jobcode=AFG23130">
+                            Talents IT (AFG23130)</a>
+                    
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Organisation:
+                </th>
+                <td>
+                    SPF Justice
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    R&#233;f&#233;rence:
+                </th>
+                <td>
+                    AFG23130
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Inscrit au:
+                </th>
+                <td>
+                    08-05-2023
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Statut:
+                </th>
+                <td>
+                    <span class="">Candidature en cours</span>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </div>
+    
+
+   <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title">R&#233;sultat</h3>
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-error">
+        <p>
+            <b>
+                Voici le r&#233;sultat de votre proc&#233;dure de s&#233;lection: </b></p>
+        <ul>
+            
+            <li>
+                         En bas de page, vous pouvez suivre l’&#233;valuation de vos conditions de participation. Vous serez en r&#233;ussite au niveau des conditions de participation uniquement si vous disposez du dipl&#244;me requis et/ou &#234;tes actuellement fonctionnaire statutaire f&#233;d&#233;ral dans le niveau exig&#233;.
+Consultez votre statut en haut de la page. Si votre statut correspond &#224; ‘Candidature en cours’, vous entrez toujours en ligne de compte pour cette proc&#233;dure de screening. 
+
+                     </li>
+            
+        </ul>
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+<script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function () {
+
+        $("#ConfirmCancelPopup").hide();
+
+        $(".confirm").easyconfirm({
+            locale: {
+                title: '*|AreYouSure|fr',
+                button: ['Non', '*|Yes|fr'],
+                closeText: ''
+            }
+        });
+    });
+
+    var currentEnrollmentId;
+    var currentEventId;
+
+    function cancelEnrollmentPopup(enrollmentId, eventId, hasNoEnrollmentsAfterCancel) {
+        currentEnrollmentId = enrollmentId;
+        currentEventId = eventId;
+
+        if (hasNoEnrollmentsAfterCancel === 'True') {
+            $('#defaultWarning').hide();
+            $('#NoEnrollmentsAfterCancelWarning').show();
+        } else {
+            $('#defaultWarning').show();
+            $('#NoEnrollmentsAfterCancelWarning').hide();
+        }
+
+        $("<div id='facebox_overlay' class='custom-facebox-overlay'></div>")
+            .appendTo($("#MyEnrollmentsPanel").css("position", "relative"));
+
+        $("#ConfirmCancelPopup").show();
+        return false;
+    }
+
+    function cancelEnrollment() {
+        var actionUrl =
+            '/MyAssessments/SelectionProcedureEnrollAssessment/CancelEnrollment';
+
+        $.ajax({
+            url: actionUrl,
+            data: {
+                enrollmentId: currentEnrollmentId,
+                eventId: currentEventId
+            }
+        });
+    }
+
+    function hidePopup() {
+        currentEnrollmentId = undefined;
+        currentEventId = undefined;
+        $("#facebox_overlay").remove();
+        $("#ConfirmCancelPopup").hide();
+    }
+
+    //]]>
+</script>
+
+    <div id="MyEnrollmentsPanel" class="panel panel-default overflow-auto"">
+
+
+
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Aper&#231;u des sessions de test</h3>
+    </div>
+    <div class="panel-body">
+
+        <div id="ConfirmCancelPopup" class="custom-delete-popup">
+            <div id="facebox" style="left: auto; right: auto">
+                <div class="popup">
+                    <div class="content">
+                        <h2 id="defaultWarning">
+                            Voulez-vous vraiment annuler l'inscription ?
+                        </h2>
+                        <h2 id="NoEnrollmentsAfterCancelWarning">
+                            Êtes-vous sûr de vouloir vous désinscrire ? Aucune autre date ne vous sera proposée et votre candidature ne sera dès lors plus prise en considération pour cette sélection. 
+
+                        </h2>
+                        <p>
+                            <button class="btn btn-primary" id="lnkConfirmDelete" onclick="cancelEnrollment();">Confirmer</button>
+                            <a class="btn btn-default" href="javascript:hidePopup()">Annuler</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="EnrollmentNotStartedStatus">
+            <h4>
+                <span>Session de test 1 </span>
+                <span>Vous ne pouvez pas encore vous inscrire</span>
+            </h4>
+            
+
+
+            <!-- Register -->
+            
+            <!-- / Register -->
+
+            <!-- Registered -->
+            
+            <!-- / Register -->
+
+            <!-- Cant enroll -->
+            
+            <!-- / Cant enroll -->
+
+
+            <!-- Targets with results-->
+            
+            <!-- / Targets with results-->
+        </div>
+        
+
+        <div class="EnrollmentNotStartedStatus">
+            <h4>
+                <span>Session de test 2 </span>
+                <span>Vous ne pouvez pas encore vous inscrire</span>
+            </h4>
+            
+
+
+            <!-- Register -->
+            
+            <!-- / Register -->
+
+            <!-- Registered -->
+            
+            <!-- / Register -->
+
+            <!-- Cant enroll -->
+            
+            <!-- / Cant enroll -->
+
+
+            <!-- Targets with results-->
+            
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Cible
+                            </th>
+                            <th>
+                                Résultat
+                            </th>
+                            
+                            <th>
+                                Points
+                            </th>
+                            <th>
+                                <span>Condition de r&#233;ussite</span>
+                            </th>
+                            <th>
+                                <span>Motivation</span>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    
+                    <tr>
+                        <td title="5482">
+                            <span>
+                                Screening sp&#233;cifique - Entretien</span>
+                        </td>
+                        
+                        <td class="MissingResult">
+                            <b>
+                                </b>
+                        </td>
+                        
+                        <td>
+                            <b>
+                                </b>
+                        </td>
+                        <td>
+                            50/100
+                        </td>
+                        
+                        <td></td>
+                        
+                    </tr>
+                    
+                    <tr>
+                        <td title="5710">
+                            <span>
+                                Screening sp&#233;cifique - Total</span>
+                        </td>
+                        
+                        <td class="MissingResult">
+                            <b>
+                                </b>
+                        </td>
+                        
+                        <td>
+                            <b>
+                                </b>
+                        </td>
+                        <td>
+                            60/120
+                        </td>
+                        
+                        <td></td>
+                        
+                    </tr>
+                    
+                </table>
+            </div>
+
+            
+            <!-- / Targets with results-->
+        </div>
+        
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+
+<h2>Screening des conditions de participation</h2>
+
+
+<h3>
+    Dans la description de fonction, dans la section <a href="https://www.travaillerpour.be/fr/job/?jobcode=AFG23130">Profil</a>, vous trouverez les conditions de participation à cette sélection. Il est précisé si vous devez remplir toutes les conditions de participation ou seulement certaines d'entre elles.
+</h3>
+
+<div class="table-responsive">
+    <table class="validationsTable table table-bordered">
+        <tbody>
+            
+            <tr>
+                <td>
+                    <b>
+                        Screening du dipl&#244;me
+                    </b>
+
+                    
+
+                </td>
+                <td class="max-width Validated">
+                    R&#233;pond aux conditions de participation
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <b>
+                        Screening de l’arr&#234;t&#233; de nomination (B)
+                    </b>
+
+                    
+                    <a href="javascript:;" data-toggle="tooltip" data-placement="right" title="L&#39;arr&#234;t&#233; de nomination est le document qu&#39;un fonctionnaire statutaire re&#231;oit lorsqu&#39;il est nomm&#233; &#224; ce poste. Pour certaines s&#233;lections, le fonctionnaire statutaire peut utiliser ce document pour s’inscrire!"><i class="icon-info"></i></a>
+                    
+
+                </td>
+                <td class="max-width NotValidated">
+                    Ne r&#233;pond pas &#224; cette condition de participation 
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <b>
+                        Screening du C.V.
+                    </b>
+
+                    
+
+                </td>
+                <td class="max-width WaitingValidation">
+                    V&#233;rification en cours 
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+
+</div>
+</div></form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #main -->
+        <div id="push">
+        </div>
+    </div>
+
+    <!-- #wrap -->
+    
+
+<footer>
+    <div class="primary-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 footer-column">
+                    <div class="title">contact</div>
+
+                    <ul>
+                        <li>
+                            <p>Vous avez une question concernant nos services?</p>
+                        </li>
+                        <li>
+                            <a href="https://travaillerpour.be/fr/contact" class="btn btn-default btn-white" target="_blank"
+                               title="Contactez nous">
+                                Contactez nous
+                            </a>
+                        </li>
+                        <li>
+                            <p class="font-weight-bold">SUIVEZ-NOUS SUR</p>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/travaillerpour.be/" title="Facebook" target="_blank"><i class="fab fa-fw fa-2x fa-facebook"></i></a>
+                            <a href="https://twitter.com/workingforbe" title="Twitter" target="_blank"><i class="fab fa-fw fa-2x fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/company/39628?trk=tyah" title="LinkedIn" target="_blank"><i class="fab fa-fw fa-2x fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/travaillerpour.be/" title="instagram" target="_blank"><i class="fab fa-fw fa-2x fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 footer-column">
+                    <div class="title">Mon C.V.</div>
+
+                    <ul>
+                        <li> <a href="/mijn-selor/mijn-cv" title="Donn&#233;es personnelles ">Donn&#233;es personnelles </a></li>
+                        <li> <a href="/mijn-selor/mijn-cv/diplomas-certificaten" title="Dipl&#244;mes et certificats ">Dipl&#244;mes et certificats </a></li>
+                        <li> <a href="/mijn-selor/mijn-cv/werkervaring" title="Exp&#233;rience professionnelle">Exp&#233;rience professionnelle</a></li>
+                        <li> <a href="/mijn-selor/mijn-cv/mijn-extras" title="Mes atouts">Mes atouts</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 footer-column">
+                    <div class="title">Tests linguistiques</div>
+                    <ul>
+                        <li> <a href="/MyAssessments/MyLanguageTestsOverview" title="Mes tests linguistiques">Mes tests linguistiques</a></li>
+                        <li> <a href="/MyAssessments/AssessmentEnrollment" title="S’inscrire aux tests linguistiques">S’inscrire aux tests linguistiques</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 footer-column">
+                    <div class="title">Compte en ligne</div>
+                    <ul>
+                        <li><a href="/MyTasksAndMessages" role="menuitem" title="Mes messages et t&#226;ches">Mes messages et t&#226;ches</a></li>
+                        <li><a data-menu="MySelectionProcedureEnrollments SelectionProcedureEnrollAssessment LaureatesOverview" href="/MyAssessments/MySelectionProcedureEnrollments" role="menuitem" title="Mes proc&#233;dures de screening">Mes proc&#233;dures de screening</a></li>
+                        <li><a href="/MySettings" title="Mes param&#232;tres">Mes param&#232;tres</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="secondary-footer">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <a href="https://travaillerpour.be/fr" class="navbar-brand">
+                        <img src="/Content/img_content/dot be employer logo horizontal FR.svg" alt="Travaillerpour.be Logo" />
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-9">
+                <ul class="footer-nav pull-left">
+                    <li class="nav-item">
+                        <a href="https://travaillerpour.be/fr/declaration-de-confidentialite"
+                           title="D&#233;claration de confidentialit&#233;">
+                            D&#233;claration de confidentialit&#233;
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://travaillerpour.be/fr/conditions-dutilisation"
+                           title="Conditions d&#39;utilisation">
+                            Conditions d&#39;utilisation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://travaillerpour.be/fr/politique-relative-aux-cookies"
+                           title="Politique relative aux cookies">
+                            Politique relative aux cookies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://travaillerpour.be/fr/declaration-daccessibilite"
+                           title="D&#233;claration d&#39;accessibilit&#233;">
+                            D&#233;claration d&#39;accessibilit&#233;
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <p>Copyright - 2023 travaillerpour.be</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+        var wucFrame = $("#wucFrame");
+        if (wucFrame != null) {
+            wucFrame.load(function () {
+                var wucLoader = $('#wucLoader');
+                if (wucLoader != null) {
+                    wucLoader.hide();
+                }
+            });
+        };
+
+        function inIframe() {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
+            }
+        }
+
+        if (inIframe()) {
+            window.parent.location = window.location;
+            try {
+                window.stop(); //works in all browsers but IE
+            } catch (e) {
+                document.execCommand("Stop"); //works in IE,
+            }
+        }
+
+    </script>
+</body>
+</html>

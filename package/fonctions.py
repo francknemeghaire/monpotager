@@ -35,5 +35,7 @@ def affichageplante():
               str(tamponplantes[indexNom][1]), ' cm\n')
         print("le type de sol pour cette plante est le suivant : ", tamponplantes[indexNom][2], '\n')
 
+
 def testchoixmenu(s):
-    print("votre choix est: ", s)
+    addplante = moteur.AjoutPlante()
+    addplante.show()

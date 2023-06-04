@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Window
 
 Window {
-    width: 640
-    height: 480
+    width: 1024
+    height: 768
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Mon jardin et mes plantes, à l'intérieur et à l'extérieur")
 }
