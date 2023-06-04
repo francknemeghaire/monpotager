@@ -21,49 +21,58 @@ from package import fonctions, requetesql
 
 basedir = os.path.dirname(__file__)
 
-
-class Fenetreajoutplante(QWidget):
-    def __init__(self):
-        super().__init__()
-        layout = QVBoxLayout()
-        self.setWindowTitle("fenêtre d'ajout de plante")
-        self.label = QLabel("nom de la plante: ")
-
-        layout.addWidget(self.label)
-        self.setLayout(layout)
-
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.w = Fenetreajoutplante()
-        self.setWindowTitle("Mon Potager")
-        bienvenue = QLabel("Bonjour")
-        bienvenue.setAlignment(Qt.AlignCenter)
-        self.setCentralWidget(bienvenue)
 
-        toolbar = QToolBar("ma barre de menu")
-        toolbar.setIconSize(QSize(16, 16))
+        self.setWindowTitle("Mon Potager")
+
+        # self.button = QPushButton("menu principal")
+        # self.button.clicked.connect(self.afficher_menu_principal)
+
+        #self.setCentralWidget(self.button)
+        toolbar = QToolBar("Menu")
         self.addToolBar(toolbar)
 
-        planteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self,)
-        planteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
-        planteajoutee.setCheckable(True)
-        # ajout d'un menu
+        button_action = QAction("Menu", self)
+        button_action.setStatusTip("accès au menu...")
+        button_action.triggered.connect(self.afficher_menu_principal)
+        toolbar.addAction(button_action)
 
-        menu = self.menuBar()
+        self.setStatusBar(QStatusBar(self))
 
-        file_menu = menu.addMenu("&Fichier")
-        file_menu.addAction(planteajoutee)
-        file_menu.addSeparator()
+    def afficher_menu_principal(self):
+        self.titreMenu = QLabel("Menu principal")
+        self.choixmenu1 = QLabel("1) Ajouter une plante")
+        self.choixmenu2 = QLabel("2) Enregistrer dans la base de donnée")
+        self.choixmenu3 = QLabel("3) Rechercher une plante")
+        self.choixmenu4 = QLabel("4) Quitter")
+        self.label = QLabel()
+        self.input = QLineEdit()
 
-    def affichagefenetreajoutdeplante(self, checked):
-        self.w.show()
-        # fin de la section du menu
+
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.titreMenu)
+        layout.addWidget(self.choixmenu1)
+        layout.addWidget(self.choixmenu2)
+        layout.addWidget(self.choixmenu3)
+        layout.addWidget(self.choixmenu4)
+        layout.addWidget(self.input)
+        layout.addWidget(self.label)
+        container = QWidget()
+        container.setLayout(layout)
+
+        self.setCentralWidget(container)
+        self.input.textChanged.connect(self.testvaleur)
+
+    def testvaleur(self, s):
+        fonctions.testchoixmenu(s)
 
 
 app = QApplication(sys.argv)
 
 window = MainWindow()
 window.show()
+
 app.exec()
