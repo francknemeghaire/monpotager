@@ -28,8 +28,11 @@ class Fenetreajoutplante(QWidget):
         layout = QVBoxLayout()
         self.setWindowTitle("fenêtre d'ajout de plante")
         self.nom = QLabel("Quel est le nom de la plante? ")
+        self.nouveaunom = QLineEdit()
         self.hauteur = QLabel("Quelle est la hauteur de la plante? ")
+        self.htplante = QLineEdit()
         self.envergure = QLabel("Quelle est son envergure? ")
+        self.envg = QLineEdit()
         self.exposition = QLabel("A quelle exposition peut on la planter (ombre, mi-ombre, etc): ")
         self.datesemis = QLabel("Quand peut-on débuter les semis: ")
         self.dateplantation = QLabel("Quand peut on les mettre en pleine terre: ")
@@ -40,8 +43,11 @@ class Fenetreajoutplante(QWidget):
         self.temperaturegermination = QLabel("Quelle est la température de germination? ")
 
         layout.addWidget(self.nom)
+        layout.addWidget(self.nouveaunom)
         layout.addWidget(self.hauteur)
+        layout.addWidget(self.htplante)
         layout.addWidget(self.envergure)
+        layout.addWidget(self.envg)
         layout.addWidget(self.exposition)
         layout.addWidget(self.datesemis)
         layout.addWidget(self.dateplantation)
@@ -51,6 +57,7 @@ class Fenetreajoutplante(QWidget):
         layout.addWidget(self.associations)
         layout.addWidget(self.temperaturegermination)
         self.setLayout(layout)
+        self.resize(800, 600)
 
 
 class MainWindow(QMainWindow):
@@ -61,6 +68,7 @@ class MainWindow(QMainWindow):
         bienvenue = QLabel("Bonjour")
         bienvenue.setAlignment(Qt.AlignCenter)
         self.setCentralWidget(bienvenue)
+        self.resize(1024, 768)
 
         toolbar = QToolBar("ma barre de menu")
         toolbar.setIconSize(QSize(16, 16))
