@@ -10,6 +10,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QLineEdit,
     QVBoxLayout,
+    QHBoxLayout,
     QGridLayout,
     QWidget,
     QPushButton,
@@ -26,7 +27,12 @@ basedir = os.path.dirname(__file__)
 class Fenetreajoutplante(QWidget):
     def __init__(self):
         super().__init__()
-        layout = QGridLayout(self)
+        layoutPrincipal = QHBoxLayout(self)
+        layoutGauche = QGridLayout(self)
+        layoutDroit = QVBoxLayout(self)
+        layoutPrincipal.addLayout(layoutGauche)
+        layoutPrincipal.addLayout(layoutDroit)
+
         self.setWindowTitle("fenêtre d'ajout de plante")
         self.LBLnom = QLabel("Quel est le nom de la plante? ")
         self.LEnom = QLineEdit()
@@ -51,30 +57,43 @@ class Fenetreajoutplante(QWidget):
         self.LBLtempgerm = QLabel("Quelle est la température de germination? ")
         self.LEtempgerm = QLineEdit()
 
-        layout.addWidget(self.LBLnom, 0, 0)
-        layout.addWidget(self.LEnom, 0, 1)
-        layout.addWidget(self.LBLht, 1, 0)
-        layout.addWidget(self.LEht, 1, 1)
-        layout.addWidget(self.LBLenvergure, 2, 0)
-        layout.addWidget(self.LEenvg, 2, 1)
-        layout.addWidget(self.LBLexpo, 3, 0)
-        layout.addWidget(self.LEexpo, 3, 1)
-        layout.addWidget(self.LBLdatesemis, 4, 0)
-        layout.addWidget(self.LEdatesemis, 4, 1)
-        layout.addWidget(self.LBLdateplantation, 5, 0)
-        layout.addWidget(self.LEdateplantation, 5, 1)
-        layout.addWidget(self.LBLduree, 6, 0)
-        layout.addWidget(self.LEduree, 6, 1)
-        layout.addWidget(self.LBLarrosage, 7, 0)
-        layout.addWidget(self.LEarrosage, 7, 1)
-        layout.addWidget(self.LBLsol, 8, 0)
-        layout.addWidget(self.LEsol, 8, 1)
-        layout.addWidget(self.LBLassoc, 9, 0)
-        layout.addWidget(self.LEassoc, 9, 1)
-        layout.addWidget(self.LBLtempgerm, 10, 0)
-        layout.addWidget(self.LEtempgerm, 10, 1)
-        self.setLayout(layout)
-        self.resize(800, 600)
+        # ajout widget layout gauche
+        layoutGauche.addWidget(self.LBLnom, 0, 0)
+        layoutGauche.addWidget(self.LEnom, 0, 1)
+        layoutGauche.addWidget(self.LBLht, 1, 0)
+        layoutGauche.addWidget(self.LEht, 1, 1)
+        layoutGauche.addWidget(self.LBLenvergure, 2, 0)
+        layoutGauche.addWidget(self.LEenvg, 2, 1)
+        layoutGauche.addWidget(self.LBLexpo, 3, 0)
+        layoutGauche.addWidget(self.LEexpo, 3, 1)
+        layoutGauche.addWidget(self.LBLdatesemis, 4, 0)
+        layoutGauche.addWidget(self.LEdatesemis, 4, 1)
+        layoutGauche.addWidget(self.LBLdateplantation, 5, 0)
+        layoutGauche.addWidget(self.LEdateplantation, 5, 1)
+        layoutGauche.addWidget(self.LBLduree, 6, 0)
+        layoutGauche.addWidget(self.LEduree, 6, 1)
+        layoutGauche.addWidget(self.LBLarrosage, 7, 0)
+        layoutGauche.addWidget(self.LEarrosage, 7, 1)
+        layoutGauche.addWidget(self.LBLsol, 8, 0)
+        layoutGauche.addWidget(self.LEsol, 8, 1)
+        layoutGauche.addWidget(self.LBLassoc, 9, 0)
+        layoutGauche.addWidget(self.LEassoc, 9, 1)
+        layoutGauche.addWidget(self.LBLtempgerm, 10, 0)
+        layoutGauche.addWidget(self.LEtempgerm, 10, 1)
+
+        # bouton de commande layout droit
+        btnSauvegarde = QPushButton("Sauvegarde", self)
+        btnRecherche = QPushButton("Rechercher", self)
+        btnAjouter = QPushButton("Ajouter", self)
+        btnSupprimer = QPushButton("Supprimer", self)
+
+        # ajout boutons au layout droit
+        layoutDroit.addWidget(btnAjouter)
+        layoutDroit.addWidget(btnRecherche)
+        layoutDroit.addWidget(btnSauvegarde)
+        layoutDroit.addWidget(btnSupprimer)
+        self.setLayout(layoutPrincipal)
+        self.resize(1024, 768)
 
 
 class MainWindow(QMainWindow):
@@ -111,4 +130,5 @@ app = QApplication(sys.argv)
 
 window = MainWindow()
 window.show()
+window.resize(1600, 1200)
 app.exec()
