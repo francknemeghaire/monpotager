@@ -1,1 +1,1 @@
-__all__ = ["menuprincipal","fonctions", "ajoutplante.py"]
+__all__ = ["menuprincipal","fonctions", "bdd"]

@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (
 )
 
 
-from package import fonctions, requetesql
+from package import fonctions,bdd
 
 basedir = os.path.dirname(__file__)
 
@@ -126,6 +126,7 @@ class MainWindow(QMainWindow):
         # fin de la section du menu
 
 
+bdd.creationBDD()
 app = QApplication(sys.argv)
 
 window = MainWindow()

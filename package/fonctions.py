@@ -1,3 +1,6 @@
+from pathlib import Path
+from package import bdd
+
 class Plante:
     """création structure pour bdd de plantes"""
 
@@ -39,3 +42,10 @@ def affichageplante():
 def testchoixmenu(s):
     addplante = moteur.AjoutPlante()
     addplante.show()
+
+def test_BDD_exist():
+    fname = Path("plantes_DB")
+    if fname.is_file():
+        return 0
+    else:
+        bdd.creationBDD()
