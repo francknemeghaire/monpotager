@@ -9,6 +9,16 @@ def creationBDD():
               CREATE TABLE IF NOT EXISTS products
               ([plante_id] INTEGER PRIMARY KEY,
                 [nom] TEXT,
-                [hauteur] INTEGER)
+                [hauteur] INTEGER,
+                [envergure] INTEGER,
+                [exposition] TEXT,
+                [datesemis] TEXT,
+                [dateplantation] TEXT,
+                [duree] INTEGER,
+                [arrosage] TEXT,
+                [sol] TEXT,
+                [association] TEXT,
+                [tempgermination] INTEGER
+                )
               ''')
     connection.commit()

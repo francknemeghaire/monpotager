@@ -30,12 +30,18 @@ class Fenetreajoutplante(QWidget):
         layoutPrincipal = QHBoxLayout(self)
         layoutGauche = QGridLayout(self)
         layoutDroit = QVBoxLayout(self)
+        layoutDroitHaut = QGridLayout(self)
+        layoutDroitBas = QVBoxLayout(self)
         layoutPrincipal.addLayout(layoutGauche)
         layoutPrincipal.addLayout(layoutDroit)
+        layoutDroit.addLayout(layoutDroitHaut)
+        layoutDroit.addLayout(layoutDroitBas)
 
         self.setWindowTitle("fenêtre d'ajout de plante")
         self.LBLnom = QLabel("Quel est le nom de la plante? ")
         self.LEnom = QLineEdit()
+        self.LBLtype = QLabel("Quel type de plante est-ce?")
+        self.LEtype = QLineEdit()
         self.LBLht = QLabel("Quelle est la hauteur de la plante? ")
         self.LEht = QLineEdit()
         self.LBLenvergure = QLabel("Quelle est son envergure? ")
@@ -80,6 +86,8 @@ class Fenetreajoutplante(QWidget):
         layoutGauche.addWidget(self.LEassoc, 9, 1)
         layoutGauche.addWidget(self.LBLtempgerm, 10, 0)
         layoutGauche.addWidget(self.LEtempgerm, 10, 1)
+        layoutDroitHaut.addWidget(self.LBLtype, 0, 0)
+        layoutDroitHaut.addWidget(self.LEtype, 0, 1)
 
         # bouton de commande layout droit
         btnSauvegarde = QPushButton("Sauvegarde", self)
@@ -88,10 +96,10 @@ class Fenetreajoutplante(QWidget):
         btnSupprimer = QPushButton("Supprimer", self)
 
         # ajout boutons au layout droit
-        layoutDroit.addWidget(btnAjouter)
-        layoutDroit.addWidget(btnRecherche)
-        layoutDroit.addWidget(btnSauvegarde)
-        layoutDroit.addWidget(btnSupprimer)
+        layoutDroitBas.addWidget(btnAjouter)
+        layoutDroitBas.addWidget(btnRecherche)
+        layoutDroitBas.addWidget(btnSauvegarde)
+        layoutDroitBas.addWidget(btnSupprimer)
         self.setLayout(layoutPrincipal)
         self.resize(1024, 768)
 
