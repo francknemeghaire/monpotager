@@ -2,7 +2,7 @@
 import os
 import sys
 from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QAction, QIcon
+from PySide6.QtGui import QAction, QIcon, QPixmap
 
 from PySide6.QtWidgets import (
     QApplication,
@@ -22,6 +22,23 @@ from PySide6.QtWidgets import (
 from package import fonctions,bdd
 
 basedir = os.path.dirname(__file__)
+
+
+class FenetreApropos(QWidget):
+    def __init__(self):
+        super().__init__()
+        bienvenue = QLabel("Mon potager 1.0")
+        # ajout photo écran de démarage
+        bienvenue.setAlignment(Qt.AlignTop)
+        bienvenue.setAlignment(Qt.AlignHCenter)
+        self.apercu = QPixmap("./image/dessinlavande.png")
+        self.LBLapercu = QLabel()
+        self.LBLapercu.setPixmap(self.apercu)
+        self.LBLapercu.setScaledContents(True)
+        self.LBLapercu.setAlignment(Qt.AlignBottom)
+        self.setCentralWidget(bienvenue)
+        self.resize(480, 480)
+
 
 
 class Fenetreajoutplante(QWidget):
@@ -100,6 +117,8 @@ class Fenetreajoutplante(QWidget):
         layoutDroitBas.addWidget(btnRecherche)
         layoutDroitBas.addWidget(btnSauvegarde)
         layoutDroitBas.addWidget(btnSupprimer)
+        layoutDroitBas.setAlignment(Qt.AlignLeft)
+        layoutDroitBas.setAlignment(Qt.AlignBottom)
         self.setLayout(layoutPrincipal)
         self.resize(1024, 768)
 
@@ -109,11 +128,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.w = Fenetreajoutplante()
         self.setWindowTitle("Mon Potager")
-        bienvenue = QLabel("Bonjour")
-        bienvenue.setAlignment(Qt.AlignCenter)
-        self.setCentralWidget(bienvenue)
         self.resize(1024, 768)
-
         toolbar = QToolBar("ma barre de menu")
         toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(toolbar)
