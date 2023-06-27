@@ -141,20 +141,3 @@ class Fenetreajoutplante(QWidget):
         layoutDroitBas.setAlignment(Qt.AlignBottom)
         self.setLayout(layoutPrincipal)
         self.resize(1024, 768)
-
-
-class FNTApropos(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("A propos...")
-        self.setGeometry(100, 100, 500, 300)
-        bienvenue = QLabel("Mon potager 1.0")
-        # ajout photo écran de démarage
-        bienvenue.setAlignment(Qt.AlignTop)
-        bienvenue.setAlignment(Qt.AlignHCenter)
-        self.apercu = QPixmap("../image/dessinlavande.png")
-        self.LBLapercu = QLabel()
-        self.LBLapercu.setScaledContents(True)
-        self.LBLapercu.setPixmap(self.apercu)
-        self.LBLapercu.resize(75, 75)
-        self.LBLapercu.setAlignment(Qt.AlignBottom)

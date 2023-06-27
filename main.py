@@ -2,7 +2,7 @@
 import os
 import sys
 from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QAction, QIcon, QPixmap
+from PySide6.QtGui import QAction, QIcon
 
 from PySide6.QtWidgets import (
     QApplication,
@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (
 
 
 from package import fonctions, bdd
+#from SubApplication import fenetreapropos
 
 basedir = os.path.dirname(__file__)
 
@@ -28,15 +29,19 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.w = fonctions.Fenetreajoutplante()
+        #self.apropos = fenetreapropos()
         self.setWindowTitle("Mon Potager")
         self.resize(1024, 768)
         toolbar = QToolBar("ma barre de menu")
         toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(toolbar)
 
-        BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self,)
+        BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
         BTNplanteajoutee.setCheckable(True)
+        # BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
+        # BTNapropos.triggered.connect(self.affichageapropos)
+        # BTNapropos.setCheckable(True)
         # ajout d'un menu
 
         menu = self.menuBar()
@@ -44,13 +49,15 @@ class MainWindow(QMainWindow):
         MNUfichier = menu.addMenu("&Fichier")
         MNUfichier.addAction(BTNplanteajoutee)
         MNUfichier.addSeparator()
+        # MNUfichier.addAction(BTNapropos)
+        # MNUfichier.addSeparator()
 
     def affichagefenetreajoutdeplante(self, checked):
         self.w.show()
-        # fin de la section du menu
 
-    def FNTapropos(self):
-        self.apropos.show
+    # def affichageapropos(self, checked):
+    #     self.apropos.show()
+    #     # fin de la section du menu
 
 
 bdd.creationBDD()
