@@ -131,13 +131,19 @@ class Fenetreajoutplante(QWidget):
         btnRecherche = QPushButton("Rechercher", self)
         btnAjouter = QPushButton("Ajouter", self)
         btnSupprimer = QPushButton("Supprimer", self)
+        btnQuitter = QPushButton("Quitter", self)
+        btnQuitter.clicked.connect(self.quitterajoutplante)
 
         # ajout boutons au layout droit
         layoutDroitBas.addWidget(btnAjouter)
         layoutDroitBas.addWidget(btnRecherche)
         layoutDroitBas.addWidget(btnSauvegarde)
         layoutDroitBas.addWidget(btnSupprimer)
+        layoutDroitBas.addWidget(btnQuitter)
         layoutDroitBas.setAlignment(Qt.AlignLeft)
         layoutDroitBas.setAlignment(Qt.AlignBottom)
         self.setLayout(layoutPrincipal)
         self.resize(1024, 768)
+
+    def quitterajoutplante(self):
+        self.close()

@@ -28,7 +28,7 @@ basedir = os.path.dirname(__file__)
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.w = fonctions.Fenetreajoutplante()
+        self.w = None
         #self.apropos = fenetreapropos()
         self.setWindowTitle("Mon Potager")
         self.resize(1024, 768)
@@ -53,7 +53,14 @@ class MainWindow(QMainWindow):
         # MNUfichier.addSeparator()
 
     def affichagefenetreajoutdeplante(self, checked):
-        self.w.show()
+        if self.w is None:
+            self.w = fonctions.Fenetreajoutplante()
+            self.w.show()
+        else:
+            self.w.close()
+            self.w = None
+            self.w = fonctions.Fenetreajoutplante()
+            self.w.show()
 
     # def affichageapropos(self, checked):
     #     self.apropos.show()
