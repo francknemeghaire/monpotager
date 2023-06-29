@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (
 
 
 from package import fonctions, bdd
-#from SubApplication import fenetreapropos
+from SubApplication import fenetreapropos
 
 basedir = os.path.dirname(__file__)
 
@@ -39,9 +39,9 @@ class MainWindow(QMainWindow):
         BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
         BTNplanteajoutee.setCheckable(True)
-        # BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
-        # BTNapropos.triggered.connect(self.affichageapropos)
-        # BTNapropos.setCheckable(True)
+        BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
+        BTNapropos.triggered.connect(self.affichageapropos)
+        BTNapropos.setCheckable(True)
         # ajout d'un menu
 
         menu = self.menuBar()
@@ -49,8 +49,8 @@ class MainWindow(QMainWindow):
         MNUfichier = menu.addMenu("&Fichier")
         MNUfichier.addAction(BTNplanteajoutee)
         MNUfichier.addSeparator()
-        # MNUfichier.addAction(BTNapropos)
-        # MNUfichier.addSeparator()
+        MNUfichier.addAction(BTNapropos)
+        MNUfichier.addSeparator()
 
     def affichagefenetreajoutdeplante(self, checked):
         if self.w is None:
@@ -62,9 +62,16 @@ class MainWindow(QMainWindow):
             self.w = fonctions.Fenetreajoutplante()
             self.w.show()
 
-    # def affichageapropos(self, checked):
-    #     self.apropos.show()
-    #     # fin de la section du menu
+    def affichageapropos(self, checked):
+        if self.w is None:
+            self.w = fenetreapropos.Apropos()
+            self.w.show()
+        else:
+            self.w.close()
+            self.w = None
+            self.w = fenetreapropos.Apropos()
+            self.w.show()
+         # fin de la section du menu
 
 
 bdd.creationBDD()

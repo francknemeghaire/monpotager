@@ -1,19 +1,18 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel
-from PyQt6.QtGui import QPixmap
-import sys
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import QPixmap, QImage
 
-app2 = QApplication(sys.argv)
-root = QWidget()
-root.setGeometry(100, 100, 800, 600)
 
-# create a QPixmap object
-qpixmap = QPixmap("./lavande.jpeg")
-# creat a QLabel for image
-lbl_img = QLabel(root)
-lbl_img.setGeometry(0, 0, 500, 300)
-lbl_img.setPixmap(qpixmap)
-# resizing the image
-lbl_img.setScaledContents(True)
-lbl_img.resize(400, 400)
-root.show()
-sys.exit(app2.exec())
+class Apropos(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("A propos")
+        self.setGeometry(0, 0, 400, 400)
+        self.pixmap = QPixmap('SubApplication/lavande.jpeg')
+        self.lbl_img = QLabel(self)
+        self.lbl_img.setScaledContents(True)
+        self.lbl_img.setPixmap(self.pixmap)
+        self.lbl_img.resize(300, 300)
+        self.show()
+
+
+
