@@ -18,7 +18,8 @@ def creationBDD():
                 [arrosage] TEXT,
                 [sol] TEXT,
                 [association] TEXT,
-                [tempgermination] INTEGER
+                [tempgermination] INTEGER,
+                [type] TEXT
                 )
               ''')
     connection.commit()

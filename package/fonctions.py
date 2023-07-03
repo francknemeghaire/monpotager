@@ -28,7 +28,7 @@ class Plante:
         self.typesol = ""
         self.arrosage = ""
         self.associations = ""
-        self.Temperaturegermination = 0
+        self.temperaturegermination = 0
         self.exposition = ""
         self.datedesemis = ""
         self.datedeplantation = ""
@@ -133,6 +133,10 @@ class Fenetreajoutplante(QWidget):
         btnSupprimer = QPushButton("Supprimer", self)
         btnQuitter = QPushButton("Quitter", self)
         btnQuitter.clicked.connect(self.quitterajoutplante)
+        btnSauvegarde.clicked.connect(self.sauvegardeplantes)
+        btnRecherche.clicked.connect(self.rechercherplante)
+        btnAjouter.clicked.connect(self.ajouterplante)
+        btnSupprimer.clicked.connect(self.supprimerplante)
 
         # ajout boutons au layout droit
         layoutDroitBas.addWidget(btnAjouter)
@@ -147,3 +151,25 @@ class Fenetreajoutplante(QWidget):
 
     def quitterajoutplante(self):
         self.close()
+
+    def sauvegardeplantes(self):
+        pass
+    def rechercherplante(self):
+        pass
+    def ajouterplante(self):
+        # ajouter la plante au tampon avant la sauvegarde dans la BDD
+        Planteajoutee.nom = self.LEnom.text()
+        Planteajoutee.envergure = self.LEenvg.text()
+        Planteajoutee.exposition = self.LEexpo.text()
+        Planteajoutee.datedesemis = self.LEdatesemis.text()
+        Planteajoutee.datedeplantation = self.LEdateplantation.text()
+        Planteajoutee.duree = self.LEduree.text()
+        Planteajoutee.arrosage = self.LEarrosage.text()
+        Planteajoutee.typesol = self.LEsol.text()
+        Planteajoutee.associations = self.LEassoc.text()
+        Planteajoutee.temperaturegermination = self.LEtempgerm.text()
+        Planteajoutee.type = self.LEtype.text()
+        tamponplantes.append((Planteajoutee.nom, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type))
+
+    def supprimerplante(self):
+        pass
