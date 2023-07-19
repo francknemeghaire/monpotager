@@ -29,7 +29,6 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.w = None
-        #self.apropos = fenetreapropos()
         self.setWindowTitle("Mon Potager")
         self.resize(1024, 768)
         toolbar = QToolBar("ma barre de menu")
@@ -52,25 +51,32 @@ class MainWindow(QMainWindow):
         MNUfichier.addAction(BTNapropos)
         MNUfichier.addSeparator()
 
+    def gestion_fenetre(self, FENamontrer):
+        #vérifier W cloturée ou pas
+        match self.w is None:
+            case True:
+                match FENamontrer:
+                    #fenetre ajout de plantes
+                    case 1:
+                        self.w = fonctions.Fenetreajoutplante()
+                    case 2:
+                        self.w = fenetreapropos.Apropos()
+                self.w.show()
+            case False:
+                self.w.close()
+                self.w = None
+                match FENamontrer:
+                    case 1:
+                        self.w = fonctions.Fenetreajoutplante()
+                    case 2:
+                        self.w = fenetreapropos.Apropos()
+                self.w.show()
+
     def affichagefenetreajoutdeplante(self, checked):
-        if self.w is None:
-            self.w = fonctions.Fenetreajoutplante()
-            self.w.show()
-        else:
-            self.w.close()
-            self.w = None
-            self.w = fonctions.Fenetreajoutplante()
-            self.w.show()
+        self.gestion_fenetre(1)
 
     def affichageapropos(self, checked):
-        if self.w is None:
-            self.w = fenetreapropos.Apropos()
-            self.w.show()
-        else:
-            self.w.close()
-            self.w = None
-            self.w = fenetreapropos.Apropos()
-            self.w.show()
+        self.gestion_fenetre(2)
          # fin de la section du menu
 
 
