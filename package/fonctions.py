@@ -1,5 +1,6 @@
 from pathlib import Path
 from package import bdd
+from package import requetesql
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtGui import QAction, QIcon, QPixmap
 from PySide6.QtWidgets import (

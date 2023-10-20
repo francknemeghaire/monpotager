@@ -1,11 +1,24 @@
 import sqlite3
+# chermin d'accès à la bdd?' à corriger?
 
+"""champs à ajouter pour mise à jour bdd
+Planteajoutee.nom
+Planteajoutee.envergure
+Planteajoutee.exposition
+Planteajoutee.datedesemis
+Planteajoutee.datedeplantation
+Planteajoutee.duree
+Planteajoutee.arrosage
+Planteajoutee.typesol
+Planteajoutee.associations
+Planteajoutee.temperaturegermination
+Planteajoutee.type))"""
 def maj_bdd(tampon):
     """ajout à la bdd"""
     connection = sqlite3.connect("./plantes.db")
     cursor = connection.cursor()
     cursor.executemany("""
-    INSERT INTO plantes (nom, taille, typedesol) VALUES (?, ?, ?)""", tampon)
+    INSERT INTO plantes (nom, envergure, exposition, datedesemis, datedeplantation, duree, arrosage, typedesol, associations, temperaturegermination, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", tampon)
     connection.commit()
     connection.close()
 
