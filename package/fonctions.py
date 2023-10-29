@@ -124,8 +124,8 @@ class Fenetreajoutplante(QWidget):
         layoutGauche.addWidget(self.LEassoc, 9, 1)
         layoutGauche.addWidget(self.LBLtempgerm, 10, 0)
         layoutGauche.addWidget(self.LEtempgerm, 10, 1)
-        layoutDroitHaut.addWidget(self.LBLtype, 0, 0)
-        layoutDroitHaut.addWidget(self.LEtype, 0, 1)
+        layoutGauche.addWidget(self.LBLtype, 11, 0)
+        layoutGauche.addWidget(self.LEtype, 11, 1)
 
         # bouton de commande layout droit
         btnSauvegarde = QPushButton("Sauvegarde", self)

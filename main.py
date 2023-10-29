@@ -46,9 +46,10 @@ class MainWindow(QMainWindow):
         menu = self.menuBar()
 
         MNUfichier = menu.addMenu("&Fichier")
+        MNUaide = menu.addMenu("Aide")
         MNUfichier.addAction(BTNplanteajoutee)
         MNUfichier.addSeparator()
-        MNUfichier.addAction(BTNapropos)
+        MNUaide.addAction(BTNapropos)
         MNUfichier.addSeparator()
 
     def gestion_fenetre(self, FENamontrer):
