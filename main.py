@@ -4,26 +4,16 @@ import sys
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtGui import QAction, QIcon
 
-from PySide6.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QLabel,
-    QLineEdit,
-    QVBoxLayout,
-    QHBoxLayout,
-    QGridLayout,
-    QWidget,
-    QPushButton,
-    QToolBar,
-    QStatusBar,
-)
+from PySide6.QtWidgets import *
 
 
 from package import fonctions, bdd
 from SubApplication import fenetreapropos
 
 basedir = os.path.dirname(__file__)
-
+def repertoirebdd():
+    repertoire = os.path.join(basedir,"./plantes")
+    return repertoire
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -38,17 +28,24 @@ class MainWindow(QMainWindow):
         BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
         BTNplanteajoutee.setCheckable(True)
+        BTNrecherchepartaille = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par taille", self, )
+        BTNrecherchepartaille.triggered.connect(self.recherchepartaille)
+        BTNrecherchepartaille.setCheckable(True)
         BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
         BTNapropos.triggered.connect(self.affichageapropos)
         BTNapropos.setCheckable(True)
         # ajout d'un menu
 
         menu = self.menuBar()
-
+        #les différents menus de l'appli
         MNUfichier = menu.addMenu("&Fichier")
+        MNUedition = menu.addMenu("Edition")
         MNUaide = menu.addMenu("Aide")
+        #les différents choix dans chaque menu
         MNUfichier.addAction(BTNplanteajoutee)
         MNUfichier.addSeparator()
+        MNUedition.addAction(BTNrecherchepartaille)
+        MNUedition.addSeparator()
         MNUaide.addAction(BTNapropos)
         MNUfichier.addSeparator()
 
@@ -76,9 +73,13 @@ class MainWindow(QMainWindow):
     def affichagefenetreajoutdeplante(self, checked):
         self.gestion_fenetre(1)
 
+    def recherchepartaille(self,checked):
+        pass
+    
     def affichageapropos(self, checked):
         self.gestion_fenetre(2)
          # fin de la section du menu
+
 
 
 bdd.creationBDD()

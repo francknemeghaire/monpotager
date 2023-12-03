@@ -3,20 +3,8 @@ from package import bdd
 from package import requetesql
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtGui import QAction, QIcon, QPixmap
-from PySide6.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QLabel,
-    QLineEdit,
-    QVBoxLayout,
-    QHBoxLayout,
-    QGridLayout,
-    QWidget,
-    QPushButton,
-    QToolBar,
-    QStatusBar,
-)
-
+from PySide6.QtWidgets import *
+import sqlite3
 
 class Plante:
     """création structure pour bdd de plantes"""
@@ -153,8 +141,9 @@ class Fenetreajoutplante(QWidget):
     def quitterajoutplante(self):
         self.close()
 
-    def sauvegardeplantes(self):
+    def sauvegardeplantes(self, repertoire):
         pass
+
     def rechercherplante(self):
         pass
     def ajouterplante(self):
@@ -171,6 +160,7 @@ class Fenetreajoutplante(QWidget):
         Planteajoutee.temperaturegermination = self.LEtempgerm.text()
         Planteajoutee.type = self.LEtype.text()
         tamponplantes.append((Planteajoutee.nom, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type))
+        requetesql.maj_bdd(tamponplantes)
 
     def supprimerplante(self):
         pass
