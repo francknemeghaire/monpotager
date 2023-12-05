@@ -15,10 +15,10 @@ Planteajoutee.temperaturegermination
 Planteajoutee.type))"""
 def creationBDD():
     # connexion à la base de données
-    connection = sqlite3.connect("../plantes")
+    connection = sqlite3.connect("plantes.db")
     c = connection.cursor()
     c.execute('''
-              CREATE TABLE IF NOT EXISTS products
+              CREATE TABLE IF NOT EXISTS plantes
               ([plante_id] INTEGER PRIMARY KEY,
                 [nom] TEXT,
                 [envergure] INTEGER,
@@ -34,3 +34,4 @@ def creationBDD():
                 )
               ''')
     connection.commit()
+    connection.close()

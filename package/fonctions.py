@@ -120,12 +120,14 @@ class Fenetreajoutplante(QWidget):
         btnRecherche = QPushButton("Rechercher", self)
         btnAjouter = QPushButton("Ajouter", self)
         btnSupprimer = QPushButton("Supprimer", self)
+        btnAfficher = QPushButton("Afficher les plantes",self)
         btnQuitter = QPushButton("Quitter", self)
         btnQuitter.clicked.connect(self.quitterajoutplante)
         btnSauvegarde.clicked.connect(self.sauvegardeplantes)
         btnRecherche.clicked.connect(self.rechercherplante)
         btnAjouter.clicked.connect(self.ajouterplante)
         btnSupprimer.clicked.connect(self.supprimerplante)
+        btnAfficher.clicked.connect(self.affichercontenubdd)
 
         # ajout boutons au layout droit
         layoutDroitBas.addWidget(btnAjouter)
@@ -133,10 +135,11 @@ class Fenetreajoutplante(QWidget):
         layoutDroitBas.addWidget(btnSauvegarde)
         layoutDroitBas.addWidget(btnSupprimer)
         layoutDroitBas.addWidget(btnQuitter)
+        layoutDroitBas.addWidget(btnAfficher)
         layoutDroitBas.setAlignment(Qt.AlignLeft)
         layoutDroitBas.setAlignment(Qt.AlignBottom)
         self.setLayout(layoutPrincipal)
-        self.resize(1024, 768)
+        self.resize(800, 600)
 
     def quitterajoutplante(self):
         self.close()
@@ -146,6 +149,10 @@ class Fenetreajoutplante(QWidget):
 
     def rechercherplante(self):
         pass
+
+    def affichercontenubdd(self):
+        requetesql.affichercontenubdd()
+
     def ajouterplante(self):
         # ajouter la plante au tampon avant la sauvegarde dans la BDD
         Planteajoutee.nom = self.LEnom.text()

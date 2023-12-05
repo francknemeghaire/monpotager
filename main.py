@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.w = None
         self.setWindowTitle("Mon Potager")
-        self.resize(1024, 768)
+        self.resize(800, 600)
         toolbar = QToolBar("ma barre de menu")
         toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(toolbar)
@@ -86,6 +86,6 @@ bdd.creationBDD()
 app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
-window.resize(1600, 1200)
+window.resize(800, 600)
 app.exec()
 
