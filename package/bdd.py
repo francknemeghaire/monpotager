@@ -19,8 +19,7 @@ def creationBDD():
     c = connection.cursor()
     c.execute('''
               CREATE TABLE IF NOT EXISTS plantes
-              ([plante_id] INTEGER PRIMARY KEY,
-                [nom] TEXT,
+              ([nom] TEXT,
                 [envergure] INTEGER,
                 [exposition] TEXT,
                 [datesemis] TEXT,

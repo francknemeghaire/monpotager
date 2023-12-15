@@ -1,10 +1,5 @@
-from pathlib import Path
-from package import bdd
-from package import requetesql
 from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QAction, QIcon, QPixmap
 from PySide6.QtWidgets import *
-import sqlite3
 
 class Plante:
     """création structure pour bdd de plantes"""
@@ -29,25 +24,6 @@ class Plante:
 
 Planteajoutee = Plante()
 tamponplantes = []
-# fonctions à retravailler pour utilisation d'interface graphique
-# def ajoutplante():
-#     reponse = "O"
-#     while reponse == "O":
-#         Planteajoutee.nom = input("Quel est le nom de la plante ? ")
-#         Planteajoutee.taille = input("Quelle est sa taille ? ")
-#         Planteajoutee.typesol = input("Dans quel type de sol peut-on la planter ? ")
-#         tamponplantes.append((Planteajoutee.nom, Planteajoutee.taille, Planteajoutee.typesol))
-#         reponse = input("Faut-il ajouter des plantes (O/N) ? ")
-
-
-# def affichageplante():
-#     # print("le nom de la plante est ", Planteajoutee.nom, " et sa taille est de ", str(Planteajoutee.taille), '\n')
-#     # print("le type de sol pour cette plante est le suivant : ", Planteajoutee.typesol, '\n')
-#     print("Les plantes encodées jusqu'à présent sont les suivantes :\n")
-#     for indexNom in range(len(tamponplantes)):
-#         print("le nom de la plante est ", tamponplantes[indexNom][0], " et sa taille est de ",
-#               str(tamponplantes[indexNom][1]), ' cm\n')
-#         print("le type de sol pour cette plante est le suivant : ", tamponplantes[indexNom][2], '\n')
 
 
 class Fenetreajoutplante(QWidget):
@@ -120,14 +96,12 @@ class Fenetreajoutplante(QWidget):
         btnRecherche = QPushButton("Rechercher", self)
         btnAjouter = QPushButton("Ajouter", self)
         btnSupprimer = QPushButton("Supprimer", self)
-        btnAfficher = QPushButton("Afficher les plantes",self)
         btnQuitter = QPushButton("Quitter", self)
         btnQuitter.clicked.connect(self.quitterajoutplante)
         btnSauvegarde.clicked.connect(self.sauvegardeplantes)
         btnRecherche.clicked.connect(self.rechercherplante)
         btnAjouter.clicked.connect(self.ajouterplante)
         btnSupprimer.clicked.connect(self.supprimerplante)
-        btnAfficher.clicked.connect(self.affichercontenubdd)
 
         # ajout boutons au layout droit
         layoutDroitBas.addWidget(btnAjouter)
@@ -135,7 +109,6 @@ class Fenetreajoutplante(QWidget):
         layoutDroitBas.addWidget(btnSauvegarde)
         layoutDroitBas.addWidget(btnSupprimer)
         layoutDroitBas.addWidget(btnQuitter)
-        layoutDroitBas.addWidget(btnAfficher)
         layoutDroitBas.setAlignment(Qt.AlignLeft)
         layoutDroitBas.setAlignment(Qt.AlignBottom)
         self.setLayout(layoutPrincipal)
@@ -149,9 +122,6 @@ class Fenetreajoutplante(QWidget):
 
     def rechercherplante(self):
         pass
-
-    def affichercontenubdd(self):
-        requetesql.affichercontenubdd()
 
     def ajouterplante(self):
         # ajouter la plante au tampon avant la sauvegarde dans la BDD
@@ -168,6 +138,7 @@ class Fenetreajoutplante(QWidget):
         Planteajoutee.type = self.LEtype.text()
         tamponplantes.append((Planteajoutee.nom, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type))
         requetesql.maj_bdd(tamponplantes)
+        tamponplantes.clear()
 
     def supprimerplante(self):
         pass

@@ -8,7 +8,7 @@ from PySide6.QtWidgets import *
 
 
 from package import fonctions, bdd
-from SubApplication import fenetreapropos
+from SubApplication import fenetreapropos, AffichageListingBdd
 
 basedir = os.path.dirname(__file__)
 def repertoirebdd():
@@ -28,9 +28,9 @@ class MainWindow(QMainWindow):
         BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
         BTNplanteajoutee.setCheckable(True)
-        BTNrecherchepartaille = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par taille", self, )
-        BTNrecherchepartaille.triggered.connect(self.recherchepartaille)
-        BTNrecherchepartaille.setCheckable(True)
+        BTNaffichagelistingplante = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Affichage des plantes de la base de données", self, )
+        BTNaffichagelistingplante.triggered.connect(self.affichagelstplante)
+        BTNaffichagelistingplante.setCheckable(True)
         BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
         BTNapropos.triggered.connect(self.affichageapropos)
         BTNapropos.setCheckable(True)
@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         #les différents choix dans chaque menu
         MNUfichier.addAction(BTNplanteajoutee)
         MNUfichier.addSeparator()
-        MNUedition.addAction(BTNrecherchepartaille)
+        MNUedition.addAction(BTNaffichagelistingplante)
         MNUedition.addSeparator()
         MNUaide.addAction(BTNapropos)
         MNUfichier.addSeparator()
@@ -59,6 +59,8 @@ class MainWindow(QMainWindow):
                         self.w = fonctions.Fenetreajoutplante()
                     case 2:
                         self.w = fenetreapropos.Apropos()
+                    case 3:
+                        self.w = AffichageListingBdd.AffichagelistingBdd()
                 self.w.show()
             case False:
                 self.w.close()
@@ -68,16 +70,18 @@ class MainWindow(QMainWindow):
                         self.w = fonctions.Fenetreajoutplante()
                     case 2:
                         self.w = fenetreapropos.Apropos()
+                    case 3:
+                        self.w = AffichageListingBdd.AffichagelistingBdd()
                 self.w.show()
 
     def affichagefenetreajoutdeplante(self, checked):
         self.gestion_fenetre(1)
 
-    def recherchepartaille(self,checked):
-        pass
-    
     def affichageapropos(self, checked):
         self.gestion_fenetre(2)
+
+    def affichagelstplante(self, checked):
+        self.gestion_fenetre(3)
          # fin de la section du menu
 
 
