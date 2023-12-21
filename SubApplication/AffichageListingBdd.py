@@ -22,11 +22,6 @@ class AffichagelistingBdd(QDialog):
         results = cur.execute(sqlstr)
         self.tableWidget.setRowCount(40)
         for row in results:
-            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(row[0]))
-            self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1]))
-            self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2]))
-            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3]))
-            self.tableWidget.setItem(tablerow, 4, QtWidgets.QTableWidgetItem(row[4]))
-            self.tableWidget.setItem(tablerow, 5, QtWidgets.QTableWidgetItem(row[5]))
-            self.tableWidget.setItem(tablerow, 6, QtWidgets.QTableWidgetItem(row[6]))
+            for colonnes in range(12):
+                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1

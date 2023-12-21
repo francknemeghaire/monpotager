@@ -7,6 +7,7 @@ def maj_bdd(tampon):
     cursor.executemany("""
     INSERT INTO plantes (
     nom,
+    taille,
     envergure,
     exposition,
     datesemis,
@@ -16,7 +17,7 @@ def maj_bdd(tampon):
     sol,
     association,
     tempgermination,
-    type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", tampon)
+    type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", tampon)
     connection.commit()
     connection.close()
 

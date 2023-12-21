@@ -20,6 +20,7 @@ def creationBDD():
     c.execute('''
               CREATE TABLE IF NOT EXISTS plantes
               ([nom] TEXT,
+                [taille] INTEGER,
                 [envergure] INTEGER,
                 [exposition] TEXT,
                 [datesemis] TEXT,

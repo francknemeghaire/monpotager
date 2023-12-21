@@ -40,12 +40,12 @@
    </property>
    <column>
     <property name="text">
-     <string>num</string>
+     <string>nom</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>nom</string>
+     <string>hauteur</string>
     </property>
    </column>
    <column>

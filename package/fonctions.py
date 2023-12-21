@@ -1,5 +1,7 @@
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import *
+from package import requetesql
+
 
 class Plante:
     """création structure pour bdd de plantes"""
@@ -126,6 +128,7 @@ class Fenetreajoutplante(QWidget):
     def ajouterplante(self):
         # ajouter la plante au tampon avant la sauvegarde dans la BDD
         Planteajoutee.nom = self.LEnom.text()
+        Planteajoutee.hauteur = self.LEht.text()
         Planteajoutee.envergure = self.LEenvg.text()
         Planteajoutee.exposition = self.LEexpo.text()
         Planteajoutee.datedesemis = self.LEdatesemis.text()
@@ -136,7 +139,7 @@ class Fenetreajoutplante(QWidget):
         Planteajoutee.associations = self.LEassoc.text()
         Planteajoutee.temperaturegermination = self.LEtempgerm.text()
         Planteajoutee.type = self.LEtype.text()
-        tamponplantes.append((Planteajoutee.nom, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type))
+        tamponplantes.append((Planteajoutee.nom, Planteajoutee.hauteur, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type))
         requetesql.maj_bdd(tamponplantes)
         tamponplantes.clear()
 
