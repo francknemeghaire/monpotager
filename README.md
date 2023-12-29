@@ -25,9 +25,14 @@ Je souhaite que la prise en main du logiciel soit simple, en permette en quelque
 soit un potager ou un jardin.
 
 Où les utilisateurs peuvent obtenir de l’aide sur votre projet
+
+
 je souhaite incorporer une aide dans le logiciel afin que l'utilisateur n'ait pas à parcourir des milliers de pages web
 pour l'utiliser
+
+
 Qui maintient et contribue au projet
+
 uniquement moi actuellement 😓😓😓
 
 
