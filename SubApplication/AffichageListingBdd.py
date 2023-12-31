@@ -25,3 +25,4 @@ class AffichagelistingBdd(QDialog):
             for colonnes in range(12):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
+        self.tableWidget.setSortingEnabled(True)
