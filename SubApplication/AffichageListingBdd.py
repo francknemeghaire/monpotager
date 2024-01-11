@@ -26,3 +26,25 @@ class AffichagelistingBdd(QDialog):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
+
+class AffichageParNom(QDialog):
+    def __init__(self, nom):
+        super().__init__()
+        self.setWindowTitle("Listing des plantes de la base de données")
+        loadUi("SubApplication/AffichagePlantesBdd.ui",self)
+        self.loaddata(nom)
+        self.show()
+
+    def loaddata(self, param):
+        connection = sqlite3.connect('plantes.db')
+        cur = connection.cursor()
+        sqlstr = 'SELECT * FROM plantes WHERE nom = (?)'
+
+        tablerow = 0
+        results = cur.execute(sqlstr, (param,))
+        self.tableWidget.setRowCount(40)
+        for row in results:
+            for colonnes in range(12):
+                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
+            tablerow += 1
+        self.tableWidget.setSortingEnabled(True)
