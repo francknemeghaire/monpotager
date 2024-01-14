@@ -28,11 +28,12 @@ class AffichagelistingBdd(QDialog):
         self.tableWidget.setSortingEnabled(True)
 
 class AffichageParNom(QDialog):
-    def __init__(self, nom):
+    def __init__(self):
         super().__init__()
         self.setWindowTitle("Listing des plantes de la base de données")
         loadUi("SubApplication/AffichagePlantesBdd.ui",self)
-        self.loaddata(nom)
+        nom = QInputDialog.getText(self, "Recherche par nom", "Nom de plante à rechercher")
+        self.loaddata(nom[0])
         self.show()
 
     def loaddata(self, param):
