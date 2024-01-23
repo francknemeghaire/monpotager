@@ -34,6 +34,9 @@ class MainWindow(QMainWindow):
         BTNrechercheparnom = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par nom", self, )
         BTNrechercheparnom.triggered.connect(self.rechercheparnom)
         BTNrechercheparnom.setCheckable(True)
+        #recherche par taille
+        #recherche par association
+        #recherche par saison de plantation
         BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
         BTNapropos.triggered.connect(self.affichageapropos)
         BTNapropos.setCheckable(True)
@@ -97,6 +100,10 @@ class MainWindow(QMainWindow):
 
     def rechercheparnom(self, checked):
         self.gestion_fenetre(4)
+
+        # recherche par taille
+        # recherche par association
+        # recherche par saison de plantation
          # fin de la section du menu
 
 

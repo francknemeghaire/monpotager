@@ -49,3 +49,72 @@ class AffichageParNom(QDialog):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
+
+class AffichageParTaille(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Listing des plantes de la base de données")
+        loadUi("SubApplication/AffichagePlantesBdd.ui",self)
+        nom = QInputDialog.getText(self, "Recherche par taille", "taille de plante à rechercher")
+        self.loaddata(nom[0])
+        self.show()
+
+    def loaddata(self, param):
+        connection = sqlite3.connect('plantes.db')
+        cur = connection.cursor()
+        sqlstr = 'SELECT * FROM plantes WHERE taille = (?)'
+
+        tablerow = 0
+        results = cur.execute(sqlstr, (param,))
+        self.tableWidget.setRowCount(40)
+        for row in results:
+            for colonnes in range(12):
+                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
+            tablerow += 1
+        self.tableWidget.setSortingEnabled(True)
+
+class AffichageParAssociation(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Listing des plantes de la base de données")
+        loadUi("SubApplication/AffichagePlantesBdd.ui", self)
+        nom = QInputDialog.getText(self, "Recherche par associations", "nom de plante à rechercher pour association")
+        self.loaddata(nom[0])
+        self.show()
+
+    def loaddata(self, param):
+        connection = sqlite3.connect('plantes.db')
+        cur = connection.cursor()
+        sqlstr = 'SELECT * FROM plantes WHERE association = (?)'
+
+        tablerow = 0
+        results = cur.execute(sqlstr, (param,))
+        self.tableWidget.setRowCount(40)
+        for row in results:
+            for colonnes in range(12):
+                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
+            tablerow += 1
+        self.tableWidget.setSortingEnabled(True)
+
+class AffichageParSaison(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Listing des plantes de la base de données")
+        loadUi("SubApplication/AffichagePlantesBdd.ui", self)
+        nom = QInputDialog.getText(self, "Recherche par saison de plantation", "Pour quelle saison faut-il faire une recherche?")
+        self.loaddata(nom[0])
+        self.show()
+
+    def loaddata(self, param):
+        connection = sqlite3.connect('plantes.db')
+        cur = connection.cursor()
+        sqlstr = 'SELECT * FROM plantes WHERE dateplantation = (?)'
+
+        tablerow = 0
+        results = cur.execute(sqlstr, (param,))
+        self.tableWidget.setRowCount(40)
+        for row in results:
+            for colonnes in range(12):
+                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
+            tablerow += 1
+        self.tableWidget.setSortingEnabled(True)
