@@ -86,7 +86,6 @@ class AffichageParAssociation(QDialog):
         connection = sqlite3.connect('plantes.db')
         cur = connection.cursor()
         sqlstr = 'SELECT * FROM plantes WHERE association = (?)'
-
         tablerow = 0
         results = cur.execute(sqlstr, (param,))
         self.tableWidget.setRowCount(40)

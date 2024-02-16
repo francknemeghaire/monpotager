@@ -27,19 +27,29 @@ class MainWindow(QMainWindow):
 
         BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
-        BTNplanteajoutee.setCheckable(True)
+        BTNplanteajoutee.setCheckable(False)
         BTNaffichagelistingplante = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Affichage des plantes de la base de données", self, )
         BTNaffichagelistingplante.triggered.connect(self.affichagelstplante)
-        BTNaffichagelistingplante.setCheckable(True)
+        BTNaffichagelistingplante.setCheckable(False)
         BTNrechercheparnom = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par nom", self, )
         BTNrechercheparnom.triggered.connect(self.rechercheparnom)
-        BTNrechercheparnom.setCheckable(True)
+        BTNrechercheparnom.setCheckable(False)
         #recherche par taille
+        BTNrecherchepartaille = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par taille", self, )
+        BTNrecherchepartaille.triggered.connect(self.recherchepartaille)
+        BTNrecherchepartaille.setCheckable(False)
         #recherche par association
+        BTNrechercheparassociation = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par association", self, )
+        BTNrechercheparassociation.triggered.connect(self.rechercheparassociation)
+        BTNrechercheparassociation.setCheckable(False)
         #recherche par saison de plantation
+        BTNrechercheparsaison = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par saison de plantation", self,)
+        BTNrechercheparsaison.triggered.connect(self.rechercheparsaison)
+        BTNrechercheparsaison.setCheckable(False)
+        #affichage fenetre d'infos appli
         BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
         BTNapropos.triggered.connect(self.affichageapropos)
-        BTNapropos.setCheckable(True)
+        BTNapropos.setCheckable(False)
         # ajout d'un menu
 
         menu = self.menuBar()
@@ -57,6 +67,9 @@ class MainWindow(QMainWindow):
         MNUaffichage.addAction(BTNaffichagelistingplante)
         MNUaffichage.addSeparator()
         MNUrecherche.addAction(BTNrechercheparnom)
+        MNUrecherche.addAction(BTNrecherchepartaille)
+        MNUrecherche.addAction(BTNrechercheparassociation)
+        MNUrecherche.addAction(BTNrechercheparsaison)
         MNUaide.addAction(BTNapropos)
         MNUfichier.addSeparator()
 
@@ -74,6 +87,12 @@ class MainWindow(QMainWindow):
                         self.w = AffichageListingBdd.AffichagelistingBdd()
                     case 4:
                         self.w = AffichageListingBdd.AffichageParNom()
+                    case 5:
+                        self.w = AffichageListingBdd.AffichageParTaille()
+                    case 6:
+                        self.w = AffichageListingBdd.AffichageParAssociation()
+                    case 7:
+                        self.w = AffichageListingBdd.AffichageParSaison()
                 self.w.show()
             case False:
                 self.w.close()
@@ -87,6 +106,12 @@ class MainWindow(QMainWindow):
                         self.w = AffichageListingBdd.AffichagelistingBdd()
                     case 4:
                         self.w = AffichageListingBdd.AffichageParNom()
+                    case 5:
+                        self.w = AffichageListingBdd.AffichageParTaille()
+                    case 6:
+                        self.w = AffichageListingBdd.AffichageParAssociation()
+                    case 7:
+                        self.w = AffichageListingBdd.AffichageParSaison()
                 self.w.show()
 
     def affichagefenetreajoutdeplante(self, checked):
@@ -100,10 +125,15 @@ class MainWindow(QMainWindow):
 
     def rechercheparnom(self, checked):
         self.gestion_fenetre(4)
-
-        # recherche par taille
-        # recherche par association
-        # recherche par saison de plantation
+# recherche par taille
+    def recherchepartaille(self, checked):
+        self.gestion_fenetre(5)
+# recherche par association
+    def rechercheparassociation(self, checked):
+        self.gestion_fenetre(6)
+# recherche par saison de plantation
+    def rechercheparsaison(self, checked):
+        self.gestion_fenetre(7)
          # fin de la section du menu
 
 
