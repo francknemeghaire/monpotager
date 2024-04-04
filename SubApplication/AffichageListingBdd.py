@@ -88,12 +88,20 @@ class AffichageParAssociation(QDialog):
         sqlstr = 'SELECT * FROM plantes WHERE association = (?)'
         tablerow = 0
         results = cur.execute(sqlstr, (param,))
+        #association => colonne 10 => tuple !!!
+        data = results.fetchall()
+        # tri de data / param
+        # sauvegarder le tri? avec sqlite? un tuple?
+        #afficher les données triées
         self.tableWidget.setRowCount(40)
-        for row in results:
-            for colonnes in range(12):
-                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
-            tablerow += 1
+        for nbrchamp in range(0, len(data)):
+            if data[nbrchamp][9] == param:
+                for item in data:
+                    for colonnes in range(12):
+                        self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(item[colonnes])))
+                    tablerow += 1
         self.tableWidget.setSortingEnabled(True)
+
 
 class AffichageParSaison(QDialog):
     def __init__(self):
