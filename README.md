@@ -1,6 +1,6 @@
 🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴🪴
 
-gestion de potager personnel - Jetbrain request ID is :  23042024/14287589
+gestion de potager personnel - Jetbrain request ID is :  23042024/14287589 - email:franck.nemeghaire@gmail.com
 
 Ce que le projet fait
 
