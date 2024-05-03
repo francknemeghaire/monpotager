@@ -145,3 +145,13 @@ class Fenetreajoutplante(QWidget):
 
     def supprimerplante(self):
         pass
+    def parcourirlabasededonnee(self):
+        connection = sqlite3.connect("plantes.db")
+        cursor = connection.cursor()
+        sqlstr = 'SELECT * FROM plantes'
+        plantedelabdd = cursor.execute(sqlstr)
+        donnees = plantedelabdd.fetchall()
+        for plante in donnees:
+            print(plante)
+
+        #en cours de création

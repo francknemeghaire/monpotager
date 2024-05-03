@@ -6,7 +6,6 @@ from PySide6.QtGui import QAction, QIcon
 
 from PySide6.QtWidgets import *
 
-
 from package import fonctions, bdd
 from SubApplication import fenetreapropos, AffichageListingBdd
 
