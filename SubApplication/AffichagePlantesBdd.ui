@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1691</width>
-    <height>748</height>
+    <width>720</width>
+    <height>732</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,6 +38,14 @@
      <height>571</height>
     </rect>
    </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <column>
+    <property name="text">
+     <string>id</string>
+    </property>
+   </column>
    <column>
     <property name="text">
      <string>nom</string>
@@ -45,12 +53,12 @@
    </column>
    <column>
     <property name="text">
-     <string>hauteur</string>
+     <string>envergure</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>envergure</string>
+     <string>hauteur</string>
     </property>
    </column>
    <column>
@@ -96,6 +104,46 @@
    <column>
     <property name="text">
      <string>type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>couleur</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>emplacement</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>feuillage persistant</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>mellifère</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>mois de floraison</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>mois de récolte</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>plante parfumée</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>plante vivace</string>
     </property>
    </column>
   </widget>

@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QPixmap
+from PySide6.QtGui import Qt
 
 
 class Apropos(QMainWindow):

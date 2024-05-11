@@ -8,18 +8,25 @@ class Plante:
 
     def __init__(self):
         self.nom = ""
-        self.type = ""
-        self.hauteur = 0
         self.envergure = 0
-        self.typesol = ""
-        self.arrosage = ""
-        self.associations = ""
-        self.temperaturegermination = 0
+        self.hauteur = 0
         self.exposition = ""
         self.datedesemis = ""
         self.datedeplantation = ""
         self.duree = ""
-
+        self.arrosage = ""
+        self.typesol = ""
+        self.associations = ""
+        self.temperaturegermination = 0
+        self.type = ""
+        self.couleur = ""
+        self.emplacement = ""
+        self.feuillagepersistant = 0
+        self.mellifere = 0
+        self.moisdefloraison = ""
+        self.moisderecolte = ""
+        self.planteparfumee = 0
+        self.plantevivace = 0
 
     "création méthode d'ajout d'un nom de plante"
 
@@ -40,16 +47,20 @@ class Fenetreajoutplante(QWidget):
         layoutPrincipal.addLayout(layoutDroit)
         layoutDroit.addLayout(layoutDroitHaut)
         layoutDroit.addLayout(layoutDroitBas)
+        barrededefilement = QScrollArea()
+        barrededefilement.setAlignment(Qt.AlignRight)
+        barrededefilement.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        barrededefilement.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        barrededefilement.setWidgetResizable(True)
+
 
         self.setWindowTitle("fenêtre d'ajout de plante")
         self.LBLnom = QLabel("Quel est le nom de la plante? ")
         self.LEnom = QLineEdit()
-        self.LBLtype = QLabel("Quel type de plante est-ce?")
-        self.LEtype = QLineEdit()
-        self.LBLht = QLabel("Quelle est la hauteur de la plante? ")
-        self.LEht = QLineEdit()
         self.LBLenvergure = QLabel("Quelle est son envergure? ")
         self.LEenvg = QLineEdit()
+        self.LBLht = QLabel("Quelle est la hauteur de la plante? ")
+        self.LEht = QLineEdit()
         self.LBLexpo = QLabel("A quelle exposition peut on la planter (ombre, mi-ombre, etc): ")
         self.LEexpo = QLineEdit()
         self.LBLdatesemis = QLabel("Quand peut-on débuter les semis: ")
@@ -66,14 +77,37 @@ class Fenetreajoutplante(QWidget):
         self.LEassoc = QLineEdit()
         self.LBLtempgerm = QLabel("Quelle est la température de germination? ")
         self.LEtempgerm = QLineEdit()
+        #ajout caractéristique supplémentaires 8/5/24
+        self.LBLtypedeplante = QLabel("Quelle type de plante est-ce ? ")
+        self.LEtypedeplante = QLineEdit()
+        self.LBLcouleurdeplante = QLabel("Quelle est la couleur de la plante ?")
+        self.LEcouleurdeplante = QLineEdit()
+        self.LBLemplacement = QLabel("Où va-t-on placer cette plante? ")
+        self.LEemplacement = QLineEdit()
+        self.LBLfeuillagepersistant = QLabel("Est-ce une plante avec un feuillage persistant ?")
+        self.CHKBOXfeuillagepersistant = QCheckBox()
+        self.CHKBOXfeuillagepersistant.setChecked(False)
+        self.LBLmellifere = QLabel("Est-ce un mellifère ?")
+        self.CHKBOXmellifere = QCheckBox()
+        self.CHKBOXmellifere.setChecked(False)
+        self.LBLmoisdefloraison = QLabel("Quelle est la mois de floraison ?")
+        self.LEmoisdefloraison = QLineEdit()
+        self.LBLmoisderecolte = QLabel("Quel est le mois de recolte ?")
+        self.LEmoisderecolte = QLineEdit()
+        self.LBLplanteparfumee = QLabel("La plante est-elle parfumée ?")
+        self.CHKBOXplanteparfumee = QCheckBox()
+        self.CHKBOXplanteparfumee.setChecked(False)
+        self.LBLplantevivace = QLabel("Est-ce une plante vivace ?")
+        self.CHKBOXplantevivace = QCheckBox()
+        self.CHKBOXplantevivace.setChecked(False)
 
         # ajout widget layout gauche
         layoutGauche.addWidget(self.LBLnom, 0, 0)
         layoutGauche.addWidget(self.LEnom, 0, 1)
-        layoutGauche.addWidget(self.LBLht, 1, 0)
-        layoutGauche.addWidget(self.LEht, 1, 1)
-        layoutGauche.addWidget(self.LBLenvergure, 2, 0)
-        layoutGauche.addWidget(self.LEenvg, 2, 1)
+        layoutGauche.addWidget(self.LBLenvergure, 1, 0)
+        layoutGauche.addWidget(self.LEenvg, 1, 1)
+        layoutGauche.addWidget(self.LBLht, 2, 0)
+        layoutGauche.addWidget(self.LEht, 2, 1)
         layoutGauche.addWidget(self.LBLexpo, 3, 0)
         layoutGauche.addWidget(self.LEexpo, 3, 1)
         layoutGauche.addWidget(self.LBLdatesemis, 4, 0)
@@ -90,8 +124,26 @@ class Fenetreajoutplante(QWidget):
         layoutGauche.addWidget(self.LEassoc, 9, 1)
         layoutGauche.addWidget(self.LBLtempgerm, 10, 0)
         layoutGauche.addWidget(self.LEtempgerm, 10, 1)
-        layoutGauche.addWidget(self.LBLtype, 11, 0)
-        layoutGauche.addWidget(self.LEtype, 11, 1)
+        layoutGauche.addWidget(self.LBLtypedeplante, 11, 0)
+        layoutGauche.addWidget(self.LEtypedeplante, 11, 1)
+        layoutGauche.addWidget(self.LBLcouleurdeplante, 12, 0)
+        layoutGauche.addWidget(self.LEcouleurdeplante, 12, 1)
+        layoutGauche.addWidget(self.LBLemplacement, 13, 0)
+        layoutGauche.addWidget(self.LEemplacement, 13, 1)
+        layoutGauche.addWidget(self.LBLfeuillagepersistant, 14, 0)
+        layoutGauche.addWidget(self.CHKBOXfeuillagepersistant, 14, 1)
+        layoutGauche.addWidget(self.LBLmellifere, 15, 0)
+        layoutGauche.addWidget(self.CHKBOXmellifere, 15, 1)
+        layoutGauche.addWidget(self.LBLmoisdefloraison, 16, 0)
+        layoutGauche.addWidget(self.LEmoisdefloraison, 16, 1)
+        layoutGauche.addWidget(self.LBLmoisderecolte, 17, 0)
+        layoutGauche.addWidget(self.LEmoisderecolte, 17, 1)
+        layoutGauche.addWidget(self.LBLplanteparfumee, 18, 0)
+        layoutGauche.addWidget(self.CHKBOXplanteparfumee, 18, 1)
+        layoutGauche.addWidget(self.LBLplantevivace, 19, 0)
+        layoutGauche.addWidget(self.CHKBOXplantevivace, 19, 1)
+        layoutGauche.addWidget(barrededefilement)
+
 
         # bouton de commande layout droit
         btnSauvegarde = QPushButton("Sauvegarde", self)
@@ -113,8 +165,8 @@ class Fenetreajoutplante(QWidget):
         layoutDroitBas.addWidget(btnQuitter)
         layoutDroitBas.setAlignment(Qt.AlignLeft)
         layoutDroitBas.setAlignment(Qt.AlignBottom)
-        self.setLayout(layoutPrincipal)
-        self.resize(800, 600)
+        self.setLayout(layoutGauche)
+        self.resize(800, 400)
 
     def quitterajoutplante(self):
         self.close()
@@ -138,8 +190,16 @@ class Fenetreajoutplante(QWidget):
         Planteajoutee.typesol = self.LEsol.text()
         Planteajoutee.associations = self.LEassoc.text()
         Planteajoutee.temperaturegermination = self.LEtempgerm.text()
-        Planteajoutee.type = self.LEtype.text()
-        tamponplantes.append((Planteajoutee.nom, Planteajoutee.hauteur, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type))
+        Planteajoutee.type = self.LEtypedeplante.text()
+        Planteajoutee.couleur = self.LEcouleurdeplante.text()
+        Planteajoutee.emplacement = self.LEemplacement.text()
+        Planteajoutee.feuillagepersistant = self.CHKBOXfeuillagepersistant.isEnabled()
+        Planteajoutee.mellifere = self.CHKBOXmellifere.isEnabled()
+        Planteajoutee.moisdefloraison = self.LEmoisdefloraison.text()
+        Planteajoutee.moisderecolte = self.LEmoisderecolte.text()
+        Planteajoutee.planteparfumee = self.CHKBOXplanteparfumee.isEnabled()
+        Planteajoutee.plantevivace = self.CHKBOXplantevivace.isEnabled()
+        tamponplantes.append((Planteajoutee.nom, Planteajoutee.hauteur, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type, Planteajoutee.couleur, Planteajoutee.emplacement, Planteajoutee.feuillagepersistant, Planteajoutee.mellifere, Planteajoutee.moisdefloraison, Planteajoutee.moisderecolte, Planteajoutee.planteparfumee, Planteajoutee.plantevivace))
         requetesql.maj_bdd(tamponplantes)
         tamponplantes.clear()
 
