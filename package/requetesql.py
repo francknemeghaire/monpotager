@@ -4,7 +4,7 @@ def maj_bdd(tampon):
     """ajout à la bdd"""
     connection = sqlite3.connect("plantes.db")
     cursor = connection.cursor()
-    requetesql = "insert into plantes (nom, envergure, hauteur, exposition, datedesemis, datedeplantation, dureedevie, typearrosage, typedesol, association, temperaturegermination, typedeplante, couleur, emplacement, feuillagepersistant, mellifere, moisdefloraison, moisderecolte, planteparfumee, plantevivace) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)"
+    requetesql = "insert into plantes (nom, envergure, hauteur, exposition, datedesemi, datedeplantation, dureedevie, typearrosage, typedesol, association, temperaturegermination, typedeplante, couleur, emplacement, feuillagepersistant, mellifere, moisdefloraison, moisderecolte, planteparfumee, plantevivace) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)"
     cursor.executemany(requetesql, tampon)
     # cursor.executemany("""
     # INSERT INTO plantes (
