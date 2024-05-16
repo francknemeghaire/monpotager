@@ -8,8 +8,8 @@ from package import requetesql
 class AffichagelistingBdd(QDialog):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Listing des plantes de la base de données")
         loadUi("SubApplication/AffichagePlantesBdd.ui",self)
+        self.setWindowTitle("Listing des plantes de la base de données")
         self.loaddata()
         self.show()
 
