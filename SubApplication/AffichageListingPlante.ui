@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1083</width>
+    <height>732</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">Dialog {
+rgb(255, 255, 255)
+}</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>1320</x>
+     <y>650</y>
+     <width>341</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>1651</width>
+     <height>471</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="gridStyle">
+    <enum>Qt::SolidLine</enum>
+   </property>
+   <property name="sortingEnabled">
+    <bool>true</bool>
+   </property>
+   <column>
+    <property name="text">
+     <string>id</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>nom</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>envergure</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>hauteur</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>exposition</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>date de semis</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>date de plantation</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>durée</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>arrosage</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>sol</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>association</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>température de germination</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>couleur</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>emplacement</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>feuillage persistant</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>mellifère</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>mois de floraison</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>mois de récolte</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>plante parfumée</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>plante vivace</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>656</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="BTN_modifier_2">
+      <property name="font">
+       <font>
+        <family>Verdana</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Modifier...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="BTN_supprimer">
+      <property name="font">
+       <font>
+        <family>Verdana</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Supprimer...</string>
+      </property>
+      <property name="icon">
+       <iconset theme="edit-delete"/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="BTN_imprimer">
+      <property name="font">
+       <font>
+        <family>Verdana</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Imprimer...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="BTN_modifie">
+      <property name="font">
+       <font>
+        <family>Verdana</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Recherche internet...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="BTN_quitter">
+      <property name="font">
+       <font>
+        <family>Verdana</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Quitter...</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
