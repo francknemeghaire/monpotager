@@ -165,7 +165,7 @@ class Fenetreajoutplante(QWidget):
         layoutDroitBas.addWidget(btnQuitter)
         layoutDroitBas.setAlignment(Qt.AlignLeft)
         layoutDroitBas.setAlignment(Qt.AlignBottom)
-        self.setLayout(layoutGauche)
+        self.setLayout(layoutPrincipal)
         self.resize(800, 400)
 
     def quitterajoutplante(self):
