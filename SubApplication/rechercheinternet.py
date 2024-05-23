@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import *
+from PyQt6.QtCore import QStringListModel
 from googlesearch import search
 
 
@@ -15,9 +16,12 @@ class FENrechercheinternet(QWidget):
         self.LBLcritere = QLabel("Que recherchez vous ? ")
         self.LEcritere = QLineEdit()
         self.LSTVIEWresultat = QListView()
+        self.modele = QStringListModel()
+        self.tableaumodele = []
         self.btnQuitter = QPushButton("Quitter", self)
         self.btnRecherche = QPushButton("Recherche", self)
         self.btnQuitter.clicked.connect(self.quitter_recherche)
+        #critere =
         self.btnRecherche.clicked.connect(self.recherchesurinternet)
         #layout
         layoutGauche.addWidget(self.LBLcritere,0,0)
@@ -32,7 +36,11 @@ class FENrechercheinternet(QWidget):
         self.close()
 
     def recherchesurinternet(self):
-        query = "A computer science portal"
+        proxy = 'http://API:@proxy.host.com:8080/'
 
-        for j in search(query, tld="co.in", num=10, stop=10, pause=2):
-            print(j)
+        j = search("tomates", lang="fr")
+        for i in j:
+            #return(i)
+            self.tableaumodele.append(i)
+        self.modele.setStringList(self.tableaumodele)
+        self.LSTVIEWresultat.setModel(self.modele)
