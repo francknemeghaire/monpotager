@@ -43,11 +43,6 @@
    </property>
    <column>
     <property name="text">
-     <string>id</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
      <string>nom</string>
     </property>
    </column>
@@ -147,7 +142,7 @@
     </property>
    </column>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>

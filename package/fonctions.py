@@ -171,8 +171,8 @@ class Fenetreajoutplante(QWidget):
     def quitterajoutplante(self):
         self.close()
 
-    def sauvegardeplantes(self, repertoire):
-        pass
+    def sauvegardeplantes(self):
+        self.sourcesdeplantesdepotager()
 
     def rechercherplante(self):
         pass
@@ -216,11 +216,6 @@ class Fenetreajoutplante(QWidget):
 
         #en cours de création
     def sourcesdeplantesdepotager(self):
-
-        # Sauvegarde dans un fichier texte
-        with open("Liste_de_plantes_de_potager.txt", "w") as file:
-            for plante in plantes_de_potager:
-                file.write(plante + "\n")
         plantes_de_potager = [
             "Allium cepa - Oignon",
             "Solanum lycopersicum - Tomate",
@@ -421,11 +416,7 @@ class Fenetreajoutplante(QWidget):
             "Vaccinium corymbosum 'Bluetta' - Myrtillier 'Bluetta'",
             "Rubus idaeus 'Encore' - Framboisier 'Encore'",
             "Rubus idaeus 'Killarney' - Framboisier 'Killarney'",
-            "Prunus cerasus 'Montmorency' - Cerisier 'Montmorency'"
-        ]
-
-    def sourcedeplantesornementales(self):
-        plantes_ornementales = [
+            "Prunus cerasus 'Montmorency' - Cerisier 'Montmorency'",
             "Rosa 'Peace' - Rose 'Peace'",
             "Hydrangea macrophylla - Hortensia",
             "Lilium 'Stargazer' - Lis 'Stargazer'",
@@ -525,15 +516,7 @@ class Fenetreajoutplante(QWidget):
             "Ficus lyrata - Figuier lyre",
             "Pothos aurea - Pothos",
             "Dieffenbachia seguine - Dieffenbachia",
-            "Calathea orbifolia - Calathea"
-        ]
-
-        # Sauvegarde dans un fichier texte
-        with open("Liste_de_plantes_ornementales.txt", "w") as file:
-            for plante in plantes_ornementales:
-                file.write(plante + "\n")
-    def sourcearbresfruitiers(self):
-        arbres_fruitiers = [
+            "Calathea orbifolia - Calathea",
             "Malus domestica - Pommier",
             "Pyrus communis - Poirier",
             "Prunus armeniaca - Abricotier",
@@ -635,9 +618,34 @@ class Fenetreajoutplante(QWidget):
             "Dovyalis caffra - Kei apple",
             "Solanum muricatum - Pepino"
         ]
-
-        # Sauvegarde dans un fichier texte
-        with open("Liste_de_arbres_fruitiers.txt", "w") as file:
-            for arbre in arbres_fruitiers:
-                file.write(arbre + "\n")
+        for nomajouter in plantes_de_potager:
+            Planteajoutee.nom = nomajouter
+            Planteajoutee.hauteur = ""
+            Planteajoutee.envergure = ""
+            Planteajoutee.exposition = ""
+            Planteajoutee.datedesemis = ""
+            Planteajoutee.datedeplantation = ""
+            Planteajoutee.duree = ""
+            Planteajoutee.arrosage = ""
+            Planteajoutee.typesol = ""
+            Planteajoutee.associations = ""
+            Planteajoutee.temperaturegermination = ""
+            Planteajoutee.type = ""
+            Planteajoutee.couleur = ""
+            Planteajoutee.emplacement = ""
+            Planteajoutee.feuillagepersistant = 0
+            Planteajoutee.mellifere = 0
+            Planteajoutee.moisdefloraison = ""
+            Planteajoutee.moisderecolte = ""
+            Planteajoutee.planteparfumee = 0
+            Planteajoutee.plantevivace = 0
+            tamponplantes.append((Planteajoutee.nom, Planteajoutee.hauteur, Planteajoutee.envergure,
+                                  Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation,
+                                  Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol,
+                                  Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type,
+                                  Planteajoutee.couleur, Planteajoutee.emplacement, Planteajoutee.feuillagepersistant,
+                                  Planteajoutee.mellifere, Planteajoutee.moisdefloraison, Planteajoutee.moisderecolte,
+                                  Planteajoutee.planteparfumee, Planteajoutee.plantevivace))
+        requetesql.maj_bdd(tamponplantes)
+        tamponplantes.clear()
 

@@ -28,8 +28,7 @@ def creationBDD():
     connection = sqlite3.connect("plantes.db")
     c = connection.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS plantes
-              ([id] LONG PRIMARY KEY,
-              [nom] TEXT,
+              ([nom] TEXT,
               [envergure] INTEGER,
               [hauteur] INTEGER,
               [exposition] TEXT,

@@ -20,9 +20,9 @@ class AffichagelistingBdd(QDialog):
 
         tablerow = 0
         results = cur.execute(sqlstr)
-        self.tableWidget.setRowCount(40)
+        self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(21):
+            for colonnes in range(20):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -43,9 +43,9 @@ class AffichageParNom(QDialog):
 
         tablerow = 0
         results = cur.execute(sqlstr, (param,))
-        self.tableWidget.setRowCount(40)
+        self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(21):
+            for colonnes in range(20):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -66,9 +66,9 @@ class AffichageParTaille(QDialog):
 
         tablerow = 0
         results = cur.execute(sqlstr, (param,))
-        self.tableWidget.setRowCount(40)
+        self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(21):
+            for colonnes in range(20):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -93,11 +93,11 @@ class AffichageParAssociation(QDialog):
         # tri de data / param
         # sauvegarder le tri? avec sqlite? un tuple?
         #afficher les données triées
-        self.tableWidget.setRowCount(40)
+        self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for nbrchamp in range(0, len(data)):
             if data[nbrchamp][9] == param:
                 for item in data:
-                    for colonnes in range(21):
+                    for colonnes in range(20):
                         self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(item[colonnes])))
                     tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -119,9 +119,9 @@ class AffichageParSaison(QDialog):
 
         tablerow = 0
         results = cur.execute(sqlstr, (param,))
-        self.tableWidget.setRowCount(40)
+        self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(21):
+            for colonnes in range(20):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
