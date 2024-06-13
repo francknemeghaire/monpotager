@@ -23,13 +23,17 @@ class MainWindow(QMainWindow):
         toolbar = QToolBar("ma barre de menu")
         toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(toolbar)
-
+        #ajout de plante
         BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
         BTNplanteajoutee.setCheckable(False)
+        #menu édition recherche internet
+        # en cours d'élaboration
+        #affichage de plante
         BTNaffichagelistingplante = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Affichage des plantes de la base de données", self, )
         BTNaffichagelistingplante.triggered.connect(self.affichagelstplante)
         BTNaffichagelistingplante.setCheckable(False)
+        #recherche par nom
         BTNrechercheparnom = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par nom", self, )
         BTNrechercheparnom.triggered.connect(self.rechercheparnom)
         BTNrechercheparnom.setCheckable(False)
