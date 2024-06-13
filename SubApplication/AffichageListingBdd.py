@@ -22,7 +22,7 @@ class AffichagelistingBdd(QDialog):
         results = cur.execute(sqlstr)
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(20):
+            for colonnes in range(21):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -45,7 +45,7 @@ class AffichageParNom(QDialog):
         results = cur.execute(sqlstr, (param,))
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(20):
+            for colonnes in range(21):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -68,7 +68,7 @@ class AffichageParTaille(QDialog):
         results = cur.execute(sqlstr, (param,))
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(20):
+            for colonnes in range(21):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -97,7 +97,7 @@ class AffichageParAssociation(QDialog):
         for nbrchamp in range(0, len(data)):
             if data[nbrchamp][9] == param:
                 for item in data:
-                    for colonnes in range(20):
+                    for colonnes in range(21):
                         self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(item[colonnes])))
                     tablerow += 1
         self.tableWidget.setSortingEnabled(True)
@@ -121,7 +121,7 @@ class AffichageParSaison(QDialog):
         results = cur.execute(sqlstr, (param,))
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
-            for colonnes in range(20):
+            for colonnes in range(21):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
