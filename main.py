@@ -7,7 +7,9 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import *
 
 from package import fonctions, bdd
-from SubApplication import fenetreapropos, AffichageListingBdd
+from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet
+
+
 
 basedir = os.path.dirname(__file__)
 def repertoirebdd():
@@ -28,7 +30,9 @@ class MainWindow(QMainWindow):
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
         BTNplanteajoutee.setCheckable(False)
         #menu édition recherche internet
-        # en cours d'élaboration
+        BTNrechercheinternet = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"recherche internet", self, )
+        BTNrechercheinternet.triggered.connect(self.rechercheinternet)
+        BTNrechercheinternet.setCheckable(False)
         #affichage de plante
         BTNaffichagelistingplante = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Affichage des plantes de la base de données", self, )
         BTNaffichagelistingplante.triggered.connect(self.affichagelstplante)
@@ -65,7 +69,7 @@ class MainWindow(QMainWindow):
         #les différents choix dans chaque menu
         MNUfichier.addAction(BTNplanteajoutee)
         MNUfichier.addSeparator()
-        MNUedition.addAction(BTNaffichagelistingplante)
+        MNUedition.addAction(BTNrechercheinternet)
         MNUedition.addSeparator()
         MNUaffichage.addAction(BTNaffichagelistingplante)
         MNUaffichage.addSeparator()
@@ -96,6 +100,9 @@ class MainWindow(QMainWindow):
                         self.w = AffichageListingBdd.AffichageParAssociation()
                     case 7:
                         self.w = AffichageListingBdd.AffichageParSaison()
+                    case 8:
+                        self.w = rechercheinternet.rechercheinternet()
+                #afficher fenetre
                 self.w.show()
             case False:
                 self.w.close()
@@ -115,6 +122,8 @@ class MainWindow(QMainWindow):
                         self.w = AffichageListingBdd.AffichageParAssociation()
                     case 7:
                         self.w = AffichageListingBdd.AffichageParSaison()
+                    case 8:
+                        self.w = rechercheinternet.rechercheinternet()
                 self.w.show()
 
     def affichagefenetreajoutdeplante(self, checked):
@@ -137,8 +146,10 @@ class MainWindow(QMainWindow):
 # recherche par saison de plantation
     def rechercheparsaison(self, checked):
         self.gestion_fenetre(7)
-         # fin de la section du menu
-
+# recherche par internet
+    def rechercheinternet(self, checked):
+        self.gestion_fenetre(8)
+        # fin de la section du menu
 
 
 bdd.creationBDD()

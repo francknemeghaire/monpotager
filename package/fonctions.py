@@ -1,6 +1,7 @@
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import *
 from package import requetesql
+from googlesearch import search
 
 
 class Plante:
@@ -648,4 +649,9 @@ class Fenetreajoutplante(QWidget):
                                   Planteajoutee.planteparfumee, Planteajoutee.plantevivace))
         requetesql.maj_bdd(tamponplantes)
         tamponplantes.clear()
+
+    def recherche_internet(self):
+        query="lavande hauteur envergure exposition"
+        for j in search(query, tld="co.in", stop=8):
+            return(j)
 

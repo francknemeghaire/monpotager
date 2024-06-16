@@ -1,1 +1,1 @@
-__all__ = ["fenetreapropos", "AffichageListingBdd"]
+__all__ = ["fenetreapropos", "AffichageListingBdd", "rechercheinternet"]
