@@ -22,7 +22,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="LE_critere">
          <property name="font">
           <font>
            <family>Verdana</family>
@@ -53,7 +53,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="BTN_RECHERCHE">
          <property name="font">
           <font>
            <family>Verdana</family>

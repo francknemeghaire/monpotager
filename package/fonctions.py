@@ -4,6 +4,11 @@ from package import requetesql
 from googlesearch import search
 
 
+def recherche_internet(query, num_results=10):
+    search_results = search(query, num_results=num_results)
+    return search_results
+
+
 class Plante:
     """création structure pour bdd de plantes"""
 
@@ -649,9 +654,4 @@ class Fenetreajoutplante(QWidget):
                                   Planteajoutee.planteparfumee, Planteajoutee.plantevivace))
         requetesql.maj_bdd(tamponplantes)
         tamponplantes.clear()
-
-    def recherche_internet(self):
-        query="lavande hauteur envergure exposition"
-        for j in search(query, tld="co.in", stop=8):
-            return(j)
 
