@@ -4,11 +4,6 @@ from package import requetesql
 from googlesearch import search
 
 
-def recherche_internet(query, num_results=10):
-    search_results = search(query, num_results=num_results)
-    return search_results
-
-
 class Plante:
     """création structure pour bdd de plantes"""
 
