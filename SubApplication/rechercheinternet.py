@@ -1,18 +1,20 @@
-from PySide6.QtCore import QUrl
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QLineEdit
 from PySide6.QtWidgets import QMainWindow, QPushButton, QVBoxLayout
 from PySide6.QtWidgets import QWidget
 from PySide6.QtWebEngineWidgets import QWebEngineView
-# link : https://www.google.be/search?q=lavande
+from PySide6.QtCore import QUrl
+
 
 class rechercheinternet(QMainWindow):
-    def __init__(self):
+    def __init__(self, critere):
         QMainWindow.__init__(self)
+        self.critere = critere
         self.setWindowTitle("Recherche Internet")
         self.widget = QWidget(self)
         self.FNTWEB = QWebEngineView()
-        self.FNTWEB.load(QUrl("https://www.google.be/search?q=lavande"))
+        self.FNTWEB.load(QUrl("https://www.google.be/search?q="+self.critere+"&hl=fr"))
         self.FNTWEB.urlChanged.connect(self.url_changed)
+        self.resize(1280, 1024)
         self.show()
         #bouton de navigation
         self.back_button = QPushButton("<")
@@ -40,7 +42,6 @@ class rechercheinternet(QMainWindow):
 
         self.widget.setLayout(self.layout)
         self.setCentralWidget(self.widget)
-
     def url_changed(self, url):
         """Refresh the address bar"""
         self.url_text.setText(url.toString())

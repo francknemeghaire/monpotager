@@ -4,6 +4,8 @@ from PyQt6.uic import loadUi
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import *
 from package import requetesql
+from SubApplication import rechercheinternet
+
 
 class AffichagelistingBdd(QDialog):
     def __init__(self):
@@ -26,6 +28,13 @@ class AffichagelistingBdd(QDialog):
                 self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
+        self.tableWidget.cellClicked.connect(self.cellClicked)
+
+    def cellClicked(self, row, col):
+        #print(type(self.tableWidget.item(row, col).text()))
+        rechercheinternet.rechercheinternet(critere=self.tableWidget.item(row, col).text())
+
+
 
 class AffichageParNom(QDialog):
     def __init__(self):

@@ -101,7 +101,8 @@ class MainWindow(QMainWindow):
                     case 7:
                         self.w = AffichageListingBdd.AffichageParSaison()
                     case 8:
-                        self.w = rechercheinternet.rechercheinternet()
+                        critere = QInputDialog.getText(self, "Recherche internet", "Nom de plante à rechercher")
+                        self.w = rechercheinternet.rechercheinternet(critere=critere[0])
                 #afficher fenetre
                 self.w.show()
             case False:
@@ -123,7 +124,8 @@ class MainWindow(QMainWindow):
                     case 7:
                         self.w = AffichageListingBdd.AffichageParSaison()
                     case 8:
-                        self.w = rechercheinternet.rechercheinternet()
+                        critere = QInputDialog.getText(self, "Recherche internet", "Nom de plante à rechercher")
+                        self.w = rechercheinternet.rechercheinternet(critere=critere[0])
                 self.w.show()
 
     def affichagefenetreajoutdeplante(self, checked):
