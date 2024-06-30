@@ -1,8 +1,8 @@
+from PySide6.QtCore import QUrl
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QLineEdit
 from PySide6.QtWidgets import QMainWindow, QPushButton, QVBoxLayout
 from PySide6.QtWidgets import QWidget
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from PySide6.QtCore import QUrl
 
 
 class rechercheinternet(QMainWindow):

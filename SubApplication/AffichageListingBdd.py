@@ -10,6 +10,7 @@ from SubApplication import rechercheinternet
 class AffichagelistingBdd(QDialog):
     def __init__(self):
         super().__init__()
+        self.FENrecherche = None
         loadUi("SubApplication/AffichagePlantesBdd.ui",self)
         self.setWindowTitle("Listing des plantes de la base de données")
         self.loaddata()
@@ -32,8 +33,8 @@ class AffichagelistingBdd(QDialog):
 
     def cellClicked(self, row, col):
         #print(type(self.tableWidget.item(row, col).text()))
-        rechercheinternet.rechercheinternet(critere=self.tableWidget.item(row, col).text())
-
+        self.FENrecherche = rechercheinternet.rechercheinternet(critere=self.tableWidget.item(row, col).text())
+        self.FENrecherche.show()
 
 
 class AffichageParNom(QDialog):
