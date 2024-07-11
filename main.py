@@ -81,52 +81,26 @@ class MainWindow(QMainWindow):
         MNUfichier.addSeparator()
 
     def gestion_fenetre(self, FENamontrer):
-        #vérifier W cloturée ou pas
-        match self.w is None:
-            case True:
-                match FENamontrer:
-                    #fenetre ajout de plantes
-                    case 1:
-                        self.w = fonctions.Fenetreajoutplante()
-                    case 2:
-                        self.w = fenetreapropos.Apropos()
-                    case 3:
-                        self.w = AffichageListingBdd.AffichagelistingBdd()
-                    case 4:
-                        self.w = AffichageListingBdd.AffichageParNom()
-                    case 5:
-                        self.w = AffichageListingBdd.AffichageParTaille()
-                    case 6:
-                        self.w = AffichageListingBdd.AffichageParAssociation()
-                    case 7:
-                        self.w = AffichageListingBdd.AffichageParSaison()
-                    case 8:
-                        critere = QInputDialog.getText(self, "Recherche internet", "Nom de plante à rechercher")
-                        self.w = rechercheinternet.rechercheinternet(critere=critere[0])
-                #afficher fenetre
-                self.w.show()
-            case False:
-                self.w.close()
-                self.w = None
-                match FENamontrer:
-                    case 1:
-                        self.w = fonctions.Fenetreajoutplante()
-                    case 2:
-                        self.w = fenetreapropos.Apropos()
-                    case 3:
-                        self.w = AffichageListingBdd.AffichagelistingBdd()
-                    case 4:
-                        self.w = AffichageListingBdd.AffichageParNom()
-                    case 5:
-                        self.w = AffichageListingBdd.AffichageParTaille()
-                    case 6:
-                        self.w = AffichageListingBdd.AffichageParAssociation()
-                    case 7:
-                        self.w = AffichageListingBdd.AffichageParSaison()
-                    case 8:
-                        critere = QInputDialog.getText(self, "Recherche internet", "Nom de plante à rechercher")
-                        self.w = rechercheinternet.rechercheinternet(critere=critere[0])
-                self.w.show()
+        self.w = None
+        match FENamontrer:
+            case 1:
+                self.w = fonctions.Fenetreajoutplante()
+            case 2:
+                self.w = fenetreapropos.Apropos()
+            case 3:
+                self.w = AffichageListingBdd.AffichagelistingBdd()
+            case 4:
+                self.w = AffichageListingBdd.AffichageParNom()
+            case 5:
+                self.w = AffichageListingBdd.AffichageParTaille()
+            case 6:
+                self.w = AffichageListingBdd.AffichageParAssociation()
+            case 7:
+                self.w = AffichageListingBdd.AffichageParSaison()
+            case 8:
+                critere = QInputDialog.getText(self, "Recherche internet", "Nom de plante à rechercher")
+                self.w = rechercheinternet.rechercheinternet(critere=critere[0])
+        self.w.show()
 
     def affichagefenetreajoutdeplante(self, checked):
         self.gestion_fenetre(1)
