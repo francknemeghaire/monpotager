@@ -76,7 +76,7 @@ class MainWindow(QMainWindow):
         MNUVisualisation = menu.addMenu("Visualisation")
         MNUPlanification = menu.addMenu("Planification")
         MNUOrganisation = menu.addMenu("Organisation")
-        MNUSanteOrganisation = menu.addMenu("Santé et Organisation")
+        MNUSanteEntretien = menu.addMenu("Santé et Entretien")
 
         MNUaide = menu.addMenu("Aide")
         #les différents choix dans chaque menu
@@ -93,7 +93,7 @@ class MainWindow(QMainWindow):
         MNUPlanification.addAction(BTNcalendrierjardin)
         MNUOrganisation.addAction(BTNgestiontaches)
         MNUOrganisation.addSeparator()
-        MNUSanteOrganisation.addAction(BTNdiagnostictraitement)
+        MNUSanteEntretien.addAction(BTNdiagnostictraitement)
 
         MNUaide.addAction(BTNapropos)
 
