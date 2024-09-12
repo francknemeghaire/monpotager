@@ -57,28 +57,45 @@ class MainWindow(QMainWindow):
         BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
         BTNapropos.triggered.connect(self.affichageapropos)
         BTNapropos.setCheckable(False)
+        # bouton lié à la planification et organisation
+        BTNcalendrierjardin = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Calendrier du jardin", self,)
+        BTNcalendrierjardin.triggered.connect(self.calendrierjardin)
+        BTNcalendrierjardin.setCheckable(False)
+        BTNgestiontaches = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Gestion des tâches", self,)
+        BTNgestiontaches.triggered.connect(self.gestiontaches)
+        BTNgestiontaches.setCheckable(False)
+        BTNdiagnostictraitement = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Diagnostic et traitement", self, )
+        BTNdiagnostictraitement.triggered.connect(self.DiagnosticTraitement)
+        BTNdiagnostictraitement.setCheckable(False)
+
         # ajout d'un menu
 
         menu = self.menuBar()
         #les différents menus de l'appli
-        MNUfichier = menu.addMenu("Fichier")
-        MNUedition = menu.addMenu("Edition")
-        MNUaffichage = menu.addMenu("Affichage")
-        MNUrecherche = menu.addMenu("Recherche")
+        MNUGestion = menu.addMenu("Gestion")
+        MNUVisualisation = menu.addMenu("Visualisation")
+        MNUPlanification = menu.addMenu("Planification")
+        MNUOrganisation = menu.addMenu("Organisation")
+        MNUSanteOrganisation = menu.addMenu("Santé et Organisation")
+
         MNUaide = menu.addMenu("Aide")
         #les différents choix dans chaque menu
-        MNUfichier.addAction(BTNplanteajoutee)
-        MNUfichier.addSeparator()
-        MNUedition.addAction(BTNrechercheinternet)
-        MNUedition.addSeparator()
-        MNUaffichage.addAction(BTNaffichagelistingplante)
-        MNUaffichage.addSeparator()
-        MNUrecherche.addAction(BTNrechercheparnom)
-        MNUrecherche.addAction(BTNrecherchepartaille)
-        MNUrecherche.addAction(BTNrechercheparassociation)
-        MNUrecherche.addAction(BTNrechercheparsaison)
+        MNUGestion.addAction(BTNplanteajoutee)
+        MNUGestion.addSeparator()
+        MNUGestion.addAction(BTNaffichagelistingplante)
+        MNUGestion.addSeparator()
+        MNUGestion.addAction(BTNrechercheparnom)
+        MNUGestion.addAction(BTNrecherchepartaille)
+        MNUGestion.addAction(BTNrechercheparassociation)
+        MNUGestion.addAction(BTNrechercheparsaison)
+        MNUVisualisation.addAction(BTNrechercheinternet)
+        MNUVisualisation.addSeparator()
+        MNUPlanification.addAction(BTNcalendrierjardin)
+        MNUOrganisation.addAction(BTNgestiontaches)
+        MNUOrganisation.addSeparator()
+        MNUSanteOrganisation.addAction(BTNdiagnostictraitement)
+
         MNUaide.addAction(BTNapropos)
-        MNUfichier.addSeparator()
 
     def gestion_fenetre(self, FENamontrer):
         self.w = None
@@ -125,6 +142,15 @@ class MainWindow(QMainWindow):
 # recherche par internet
     def rechercheinternet(self, checked):
         self.gestion_fenetre(8)
+# calendrier jardin
+    def calendrierjardin(self, checked):
+        pass
+# gestion des tâches
+    def gestiontaches(self, checked):
+        pass
+# diagnostic et traitement
+    def DiagnosticTraitement(self, checked):
+        pass
         # fin de la section du menu
 
 
