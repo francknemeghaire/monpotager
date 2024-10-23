@@ -7,7 +7,7 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import *
 
 from package import fonctions, bdd
-from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet
+from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet, vision3D
 
 
 
@@ -19,10 +19,10 @@ def repertoirebdd():
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.w = None
-        self.setWindowTitle("Mon Potager")
-        self.resize(800, 600)
-        toolbar = QToolBar("ma barre de menu")
+        self.setWindowTitle("CodeForTerra")
+        #self.resize(300, 200)
+        self.setGeometry(0,0,800,200)
+        toolbar = QToolBar()
         toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(toolbar)
         #ajout de plante
@@ -67,7 +67,9 @@ class MainWindow(QMainWindow):
         BTNdiagnostictraitement = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Diagnostic et traitement", self, )
         BTNdiagnostictraitement.triggered.connect(self.DiagnosticTraitement)
         BTNdiagnostictraitement.setCheckable(False)
-
+        BTNvisualisation3D = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Visualisation", self, )
+        BTNvisualisation3D.triggered.connect(self.Visualisation3D)
+        BTNvisualisation3D.setCheckable(False)
         # ajout d'un menu
 
         menu = self.menuBar()
@@ -90,6 +92,7 @@ class MainWindow(QMainWindow):
         MNUGestion.addAction(BTNrechercheparsaison)
         MNUVisualisation.addAction(BTNrechercheinternet)
         MNUVisualisation.addSeparator()
+        MNUVisualisation.addAction(BTNvisualisation3D)
         MNUPlanification.addAction(BTNcalendrierjardin)
         MNUOrganisation.addAction(BTNgestiontaches)
         MNUOrganisation.addSeparator()
@@ -97,67 +100,59 @@ class MainWindow(QMainWindow):
 
         MNUaide.addAction(BTNapropos)
 
-    def gestion_fenetre(self, FENamontrer):
-        self.w = None
-        match FENamontrer:
-            case 1:
-                self.w = fonctions.Fenetreajoutplante()
-            case 2:
-                self.w = fenetreapropos.Apropos()
-            case 3:
-                self.w = AffichageListingBdd.AffichagelistingBdd()
-            case 4:
-                self.w = AffichageListingBdd.AffichageParNom()
-            case 5:
-                self.w = AffichageListingBdd.AffichageParTaille()
-            case 6:
-                self.w = AffichageListingBdd.AffichageParAssociation()
-            case 7:
-                self.w = AffichageListingBdd.AffichageParSaison()
-            case 8:
-                critere = QInputDialog.getText(self, "Recherche internet", "Nom de plante à rechercher")
-                self.w = rechercheinternet.rechercheinternet(critere=critere[0])
-        self.w.show()
-
     def affichagefenetreajoutdeplante(self, checked):
-        self.gestion_fenetre(1)
+        self.FENajoutplante= fonctions.Fenetreajoutplante()
+        self.FENajoutplante.show()
 
     def affichageapropos(self, checked):
-        self.gestion_fenetre(2)
+        self.FENapropos = fenetreapropos.Apropos()
+        self.FENapropos.show()
 
     def affichagelstplante(self, checked):
-        self.gestion_fenetre(3)
+        self.FENlstplante = AffichageListingBdd.AffichagelistingBdd()
+        self.FENlstplante.show()
 
     def rechercheparnom(self, checked):
-        self.gestion_fenetre(4)
+        self.FENlstparnom = AffichageListingBdd.AffichageParNom()
+        self.FENlstparnom.show()
 # recherche par taille
     def recherchepartaille(self, checked):
-        self.gestion_fenetre(5)
+        self.FENlstpartaille = AffichageListingBdd.AffichageParTaille()
+        self.FENlstpartaille.show()
 # recherche par association
     def rechercheparassociation(self, checked):
-        self.gestion_fenetre(6)
+        self.FENlstparassociation = AffichageListingBdd.AffichageParAssociation()
+        self.FENlstparassociation.show()
 # recherche par saison de plantation
     def rechercheparsaison(self, checked):
-        self.gestion_fenetre(7)
+        self.FENlstparsaison = AffichageListingBdd.AffichageParSaison()
+        self.FENlstparsaison.show()
 # recherche par internet
     def rechercheinternet(self, checked):
-        self.gestion_fenetre(8)
+        #self.gestion_fenetre(8)
+        critere = QInputDialog.getText(self, "Recherche internet", "Nom de plante à rechercher")
+        self.FENrechercheinternet = rechercheinternet.rechercheinternet(critere=critere[0])
+        self.FENrechercheinternet.show()
 # calendrier jardin
     def calendrierjardin(self, checked):
+        #creer une interface pour avoir un calendrier
         pass
 # gestion des tâches
     def gestiontaches(self, checked):
+        #creer une interface en lien avec le calendrier?
         pass
 # diagnostic et traitement
     def DiagnosticTraitement(self, checked):
         pass
         # fin de la section du menu
-
+# visualisation 3D
+    def Visualisation3D(self, checked):
+        self.FENvisualisation = vision3D.GardenApp()
+        self.FENvisualisation.run()
 
 bdd.creationBDD()
 app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
-window.resize(800, 600)
 app.exec()
 
