@@ -14,7 +14,7 @@ class rechercheinternet(QMainWindow):
         self.FNTWEB = QWebEngineView()
         self.FNTWEB.load(QUrl("https://www.google.be/search?q="+self.critere+"&hl=fr"))
         self.FNTWEB.urlChanged.connect(self.url_changed)
-        self.resize(1280, 1024)
+        self.setGeometry(0,0,1024,768)
         self.show()
         #bouton de navigation
         self.back_button = QPushButton("<")

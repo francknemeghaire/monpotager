@@ -14,6 +14,7 @@ class AffichagelistingBdd(QDialog):
         loadUi("SubApplication/AffichagePlantesBdd.ui",self)
         self.setWindowTitle("Listing des plantes de la base de données")
         self.loaddata()
+        self.setGeometry(0,0,500,500)
         self.show()
 
     def loaddata(self):

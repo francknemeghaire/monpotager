@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QPixmap
-from PySide6.QtGui import Qt
 
 
 class Apropos(QMainWindow):
@@ -13,6 +12,7 @@ class Apropos(QMainWindow):
         self.lbl_img.setScaledContents(True)
         self.lbl_img.setPixmap(self.pixmap)
         self.lbl_img.resize(300, 300)
+        self.setGeometry(0, 0, 500, 500)
         self.show()
 
 
