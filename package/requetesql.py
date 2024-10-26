@@ -1,4 +1,5 @@
 import sqlite3
+#créer un champ photo (lien)
 
 def maj_bdd(tampon):
     """ajout à la bdd"""

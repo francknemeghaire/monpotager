@@ -29,7 +29,7 @@ class Plante:
         self.plantevivace = 0
 
     "création méthode d'ajout d'un nom de plante"
-
+#créer un champ photo (lien)
 
 Planteajoutee = Plante()
 tamponplantes = []

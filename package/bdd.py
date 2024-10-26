@@ -53,3 +53,4 @@ def creationBDD():
               ''')
     connection.commit()
     connection.close()
+#créer un champ photo (lien)
