@@ -7,7 +7,7 @@ h1 {
     width: 400px;
     height: 400px;
     margin: 50px auto; 
-    box-shadow: Opx 15px 10px -5px #fbfbfc; 
+    box-shadow: Opx 15px 10px 5px #fbfbfc;
     background-color: white;
     background-size: contain;
     background-position: center;
@@ -19,7 +19,7 @@ h1 {
     0% {background-image: url("annie-spratt-VviNSpJuGj0-unsplash.jpg");}
     33.33% {background-image: url("markus-spiske-sFydXGrt5OA-unsplash.jpg");}
     66.67% {background-image: url("michael-olsen-CBrjgZ53NOs-unsplash.jpg");}
-    100% {background-image: ur1("victor-malyushev-w_N-XCjiM0o-unsplash.jpg");}
+    100% {background-image: url("victor-malyushev-w_N-XCjiM0o-unsplash.jpg");}
 }
 
 .d1:hover{
