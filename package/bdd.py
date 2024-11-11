@@ -48,9 +48,9 @@ def creationBDD():
               [moisdefloraison] INTEGER,
               [moisderecolte] INTEGER,
               [planteparfumee] INTEGER,
-              [plantevivace] INTEGER  
+              [plantevivace] INTEGER,
+              [cheminaccesimage] TEXT 
               )
               ''')
     connection.commit()
     connection.close()
-#créer un champ photo (lien)
