@@ -1,13 +1,13 @@
 # This Python file uses the following encoding: utf-8
 import os
 import sys
-from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QAction, QIcon
 
+from PySide6.QtCore import QSize
+from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import *
 
 from package import fonctions, bdd
-from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet, vision3D
+from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet, vision3D, calendrier
 
 
 
@@ -136,7 +136,8 @@ class MainWindow(QMainWindow):
 # calendrier jardin
     def calendrierjardin(self, checked):
         #creer une interface pour avoir un calendrier
-        pass
+        self.FENcalendrier = calendrier.Calendrier()
+        self.FENcalendrier.show()
 # gestion des tâches
     def gestiontaches(self, checked):
         #creer une interface en lien avec le calendrier?
@@ -149,6 +150,14 @@ class MainWindow(QMainWindow):
     def Visualisation3D(self, checked):
         self.FENvisualisation = vision3D.GardenApp()
         self.FENvisualisation.run()
+
+        def closeEvent(self, event):
+            self.FENvisualisation.close()
+            # Arrêter le moteur Panda3D
+            #base.destroy()
+            # Fermer d'autres ressources si nécessaire
+            # ...
+            #event.accept()
 
 bdd.creationBDD()
 app = QApplication(sys.argv)
