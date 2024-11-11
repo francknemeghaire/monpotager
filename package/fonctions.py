@@ -1,5 +1,7 @@
-from PySide6.QtCore import QSize, Qt
+from PyQt6.QtGui import QImage
 from PySide6.QtWidgets import *
+from PySide6.QtCore import QSize, Qt
+from PySide6.QtGui import QPixmap
 from package import requetesql
 
 
@@ -27,6 +29,7 @@ class Plante:
         self.moisderecolte = ""
         self.planteparfumee = 0
         self.plantevivace = 0
+        self.cheminaccesimage = ""
 
     "création méthode d'ajout d'un nom de plante"
 #créer un champ photo (lien)
@@ -41,18 +44,12 @@ class Fenetreajoutplante(QWidget):
         layoutPrincipal = QHBoxLayout(self)
         layoutGauche = QGridLayout(self)
         layoutDroit = QVBoxLayout(self)
-        layoutDroitHaut = QGridLayout(self)
+        layoutDroitHaut = QVBoxLayout(self)
         layoutDroitBas = QVBoxLayout(self)
         layoutPrincipal.addLayout(layoutGauche)
         layoutPrincipal.addLayout(layoutDroit)
         layoutDroit.addLayout(layoutDroitHaut)
         layoutDroit.addLayout(layoutDroitBas)
-        barrededefilement = QScrollArea()
-        barrededefilement.setAlignment(Qt.AlignRight)
-        barrededefilement.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        barrededefilement.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        barrededefilement.setWidgetResizable(True)
-
 
         self.setWindowTitle("fenêtre d'ajout de plante")
         self.LBLnom = QLabel("Quel est le nom de la plante? ")
@@ -100,6 +97,14 @@ class Fenetreajoutplante(QWidget):
         self.LBLplantevivace = QLabel("Est-ce une plante vivace ?")
         self.CHKBOXplantevivace = QCheckBox()
         self.CHKBOXplantevivace.setChecked(False)
+        #partie du code pour traitement des photos
+        self.LBLcheminaccesimage = QLabel("chemin d'accès de la photo ?")
+        self.LEcheminaccesimage = QLineEdit()
+        # self.nomphoto = QPixmap('image/noimage.jpg')
+        # self.photoplante = QLabel(self)
+        # self.photoplante.setScaledContents(True)
+        # self.photoplante.setPixmap(self.nomphoto)
+        #self.photoplante.resize(100, 100)
 
         # ajout widget layout gauche
         layoutGauche.addWidget(self.LBLnom, 0, 0)
@@ -142,7 +147,9 @@ class Fenetreajoutplante(QWidget):
         layoutGauche.addWidget(self.CHKBOXplanteparfumee, 18, 1)
         layoutGauche.addWidget(self.LBLplantevivace, 19, 0)
         layoutGauche.addWidget(self.CHKBOXplantevivace, 19, 1)
-        layoutGauche.addWidget(barrededefilement)
+        layoutGauche.addWidget(self.LBLcheminaccesimage, 20, 0)
+        layoutGauche.addWidget(self.LEcheminaccesimage, 20, 1)
+        layoutGauche.setVerticalSpacing(10)
 
         # bouton de commande layout droit
         btnSauvegarde = QPushButton("Sauvegarde", self)
@@ -150,14 +157,17 @@ class Fenetreajoutplante(QWidget):
         btnAjouter = QPushButton("Ajouter", self)
         btnSupprimer = QPushButton("Supprimer", self)
         btnQuitter = QPushButton("Quitter", self)
+        btnAjoutIMAGE = QPushButton("Ajouter une image à la fiche", self)
         btnQuitter.clicked.connect(self.quitterajoutplante)
         btnSauvegarde.clicked.connect(self.sauvegardeplantes)
         btnRecherche.clicked.connect(self.rechercherplante)
         btnAjouter.clicked.connect(self.ajouterplante)
         btnSupprimer.clicked.connect(self.supprimerplante)
+        btnAjoutIMAGE.clicked.connect(self.ajoutimage)
 
         # ajout boutons au layout droit
         layoutDroitBas.addWidget(btnAjouter)
+        layoutDroitBas.addWidget(btnAjoutIMAGE)
         layoutDroitBas.addWidget(btnRecherche)
         layoutDroitBas.addWidget(btnSauvegarde)
         layoutDroitBas.addWidget(btnSupprimer)
@@ -165,7 +175,22 @@ class Fenetreajoutplante(QWidget):
         layoutDroitBas.setAlignment(Qt.AlignLeft)
         layoutDroitBas.setAlignment(Qt.AlignBottom)
         self.setLayout(layoutPrincipal)
-        self.resize(800, 400)
+        self.resize(1920, 1080)
+
+    def ajoutimage(self):
+        self.DLGfichier = QFileDialog()
+        self.DLGfichier.setFileMode(QFileDialog.FileMode.ExistingFiles)
+        nomfichier = self.DLGfichier.getOpenFileName(self, "Sélectionnez l'image...","","","*.jpg,*.jpeg,*.png")
+        self.LEcheminaccesimage.setText(nomfichier[0])
+
+    def apercuphotoplante(self):
+        try:
+            self.nomphoto = QPixmap(self.LEcheminaccesimage.text())
+            self.photoplante.setScaledContents(True)
+            self.photoplante.setPixmap(self.nomphoto)
+            self.photoplante.resize(100,100)
+        except:
+            pass
 
     def quitterajoutplante(self):
         self.close()
@@ -198,7 +223,8 @@ class Fenetreajoutplante(QWidget):
         Planteajoutee.moisderecolte = self.LEmoisderecolte.text()
         Planteajoutee.planteparfumee = self.CHKBOXplanteparfumee.isEnabled()
         Planteajoutee.plantevivace = self.CHKBOXplantevivace.isEnabled()
-        tamponplantes.append((Planteajoutee.nom, Planteajoutee.hauteur, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type, Planteajoutee.couleur, Planteajoutee.emplacement, Planteajoutee.feuillagepersistant, Planteajoutee.mellifere, Planteajoutee.moisdefloraison, Planteajoutee.moisderecolte, Planteajoutee.planteparfumee, Planteajoutee.plantevivace))
+        Planteajoutee.cheminaccesimage = self.LEcheminaccesimage.text()
+        tamponplantes.append((Planteajoutee.nom, Planteajoutee.hauteur, Planteajoutee.envergure, Planteajoutee.exposition, Planteajoutee.datedesemis, Planteajoutee.datedeplantation, Planteajoutee.duree, Planteajoutee.arrosage, Planteajoutee.typesol, Planteajoutee.associations, Planteajoutee.temperaturegermination, Planteajoutee.type, Planteajoutee.couleur, Planteajoutee.emplacement, Planteajoutee.feuillagepersistant, Planteajoutee.mellifere, Planteajoutee.moisdefloraison, Planteajoutee.moisderecolte, Planteajoutee.planteparfumee, Planteajoutee.plantevivace, Planteajoutee.cheminaccesimage))
         requetesql.maj_bdd(tamponplantes)
         tamponplantes.clear()
 
@@ -212,4 +238,3 @@ class Fenetreajoutplante(QWidget):
         donnees = plantedelabdd.fetchall()
         for plante in donnees:
             print(plante)
-
