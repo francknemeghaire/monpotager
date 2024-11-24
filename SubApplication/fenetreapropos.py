@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QPixmap
 
 
-class Apropos(QMainWindow):
+class Apropos(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("A propos")
