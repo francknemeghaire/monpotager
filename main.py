@@ -7,7 +7,7 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import *
 
 from package import fonctions, bdd
-from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet, vision3D, calendrier
+from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet, vision3D, calendrier, FENajoutplantes
 
 
 
@@ -22,11 +22,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("CodeForTerra")
         #self.resize(300, 200)
         self.setGeometry(0,0,800,200)
-        toolbar = QToolBar()
-        toolbar.setIconSize(QSize(16, 16))
-        self.addToolBar(toolbar)
+
         #ajout de plante
-        BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Ajouter une plante", self, )
+        BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Gestion base de données de plantes", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
         BTNplanteajoutee.setCheckable(False)
         #menu édition recherche internet
@@ -97,11 +95,18 @@ class MainWindow(QMainWindow):
         MNUOrganisation.addAction(BTNgestiontaches)
         MNUOrganisation.addSeparator()
         MNUSanteEntretien.addAction(BTNdiagnostictraitement)
-
         MNUaide.addAction(BTNapropos)
+        #toolbar
+        toolbar = QToolBar()
+        toolbar.setIconSize(QSize(30, 30))
+        self.addToolBar(toolbar)
+        # bouton toolbar
+        TLBquit = QAction(QIcon(os.path.join(basedir, "icons/exit.png")), "Quitter", self)
+        TLBquit.triggered.connect(self.close)
+        toolbar.addAction(TLBquit)
 
     def affichagefenetreajoutdeplante(self, checked):
-        self.FENajoutplante= fonctions.Fenetreajoutplante()
+        self.FENajoutplante = FENajoutplantes.Fenetreajoutplante(repertoire=basedir)
         self.FENajoutplante.show()
 
     def affichageapropos(self, checked):
