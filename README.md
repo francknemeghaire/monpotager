@@ -13,7 +13,7 @@ Pour que l’application soit utile et performante, voici une liste de fonctionn
 
         - [x] 	1.	Catalogue de Plantes :
         - [x] 	•	Base de données intégrée des plantes (potagères, ornementales, etc.) avec des informations détaillées (nom, type, besoins en eau et lumière, période de plantation, etc.).
-        - [ ] 	•	Possibilité d’ajouter des plantes personnalisées avec des détails et des photos.
+        - [x] 	•	Possibilité d’ajouter des plantes personnalisées avec des détails et des photos.
         - [ ] 	2.	Suivi des Plantes :
         - [ ] 	•	Journal de croissance pour chaque plante avec des notes et des photos.
         - [ ] 	•	Notifications pour l’arrosage, la fertilisation, et la récolte.
@@ -22,7 +22,7 @@ Pour que l’application soit utile et performante, voici une liste de fonctionn
 
 - [ ] Vision 3D du Jardin
 
-        - [en cours ] 	1.	Modélisation 3D :
+        - [] 	1.	Modélisation 3D :
         - [ ] 	•	Interface de conception 3D intuitive pour créer et visualiser le jardin.
         - [ ] 	•	Bibliothèque d’objets 3D pour les plantes, les structures de jardin (clôtures, allées, meubles de jardin, etc.).
         - [ ] 	•	Outils de mesure et de disposition pour organiser les plantes et les éléments du jardin.
