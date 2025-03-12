@@ -1,12 +1,16 @@
 import os
-from PySide6.QtGui import QAction, QIcon
+#from PySide6.QtGui import QAction, QIcon
 import os.path
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-#from PySide6.QtGui import QPixmap
+# from PySide6.QtWidgets import *
+# from PySide6.QtCore import *
+import sqlite3
 
-#import main
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+
+from SubApplication import FENresultatsrecherche
 from package import requetesql, fonctions
 
 
@@ -15,13 +19,12 @@ tamponplantes = []
 
 
 class Fenetreajoutplante(QMainWindow):
-    def __init__(self, repertoire):
+    def __init__(self):
         super().__init__()
         widget = QWidget()
         layoutPrincipal = QHBoxLayout(widget)
         layoutGauche = QGridLayout(widget)
         layoutPrincipal.addLayout(layoutGauche)
-
         #création d'un menu
         menu = self.menuBar()
         #création d'un toolbar
@@ -29,13 +32,13 @@ class Fenetreajoutplante(QMainWindow):
         toolbar.setIconSize(QSize(30, 30))
         self.addToolBar(toolbar)
         # sauvegarde, recherche, ajouter, supprimer, quitter, ajouter une image, apercu
-        BTNajout = QAction(QIcon(os.path.join(repertoire, "icons/box.png")), "Ajouter une plante", self, )
+        BTNajout = QAction(QIcon(os.path.join("icons", "plus.png")), "Ajouter une plante", self, )
         BTNajout.triggered.connect(self.ajouterplante)
         BTNajout.setCheckable(False)
-        BTNapercu = QAction(QIcon(os.path.join(repertoire, "icons/box.png")), "Aperçu de la plante", self, )
+        BTNapercu = QAction(QIcon(os.path.join("icons", "box.png")), "Aperçu de la plante", self, )
         BTNapercu.triggered.connect(self.apercuimage)
         BTNapercu.setCheckable(False)
-        BTNajoutimage = QAction(QIcon(os.path.join(repertoire, "icons/box.png")), "Ajouter une image", self, )
+        BTNajoutimage = QAction(QIcon(os.path.join("icons", "box.png")), "Ajouter une image", self, )
         BTNajoutimage.triggered.connect(self.ajoutimage)
         BTNajoutimage.setCheckable(False)
         #sous menu
@@ -46,11 +49,12 @@ class Fenetreajoutplante(QMainWindow):
         MNUbdd.addAction(BTNajoutimage)
         MNUplante.addAction(BTNapercu)
         #bouton toolbar
-        TLBquit = QAction(QIcon(os.path.join(repertoire, "icons/exit.png")), "Quitter", self)
+        TLBquit = QAction(QIcon(os.path.join("icons", "exit.png")), "Quitter", self)
         TLBquit.triggered.connect(self.quitterajoutplante)
         toolbar.addAction(TLBquit)
 
-        self.setWindowTitle("fenêtre d'ajout de plante")
+        self.setWindowTitle("fenêtre d'ajout/modification de plante")
+        self.LBLid = QLabel("nouveau nom")
         self.LBLnom = QLabel("Quel est le nom de la plante? ")
         self.LEnom = QLineEdit()
         self.LBLenvergure = QLabel("Quelle est son envergure? ")
@@ -99,10 +103,12 @@ class Fenetreajoutplante(QMainWindow):
         #partie du code pour traitement des photos
         self.LBLcheminaccesimage = QLabel("chemin d'accès de la photo ?")
         self.LEcheminaccesimage = QLineEdit()
+        self.TBLWIDGETplanteparnom = FENresultatsrecherche.FENresultatsrecherche()
 
         # ajout widget layout gauche
         layoutGauche.addWidget(self.LBLnom, 0, 0)
         layoutGauche.addWidget(self.LEnom, 0, 1)
+        layoutGauche.addWidget(self.LBLid, 0,2)
         layoutGauche.addWidget(self.LBLenvergure, 1, 0)
         layoutGauche.addWidget(self.LEenvg, 1, 1)
         layoutGauche.addWidget(self.LBLht, 2, 0)
@@ -143,7 +149,9 @@ class Fenetreajoutplante(QMainWindow):
         layoutGauche.addWidget(self.CHKBOXplantevivace, 19, 1)
         layoutGauche.addWidget(self.LBLcheminaccesimage, 20, 0)
         layoutGauche.addWidget(self.LEcheminaccesimage, 20, 1)
-        layoutGauche.setVerticalSpacing(5)
+        layoutGauche.addWidget(self.TBLWIDGETplanteparnom, 21, 0)
+        #layoutGauche.setVerticalSpacing(5)
+
 
         # ajout boutons au layout droit
         widget.setLayout(layoutPrincipal)
