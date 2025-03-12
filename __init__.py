@@ -1,1 +1,1 @@
-__all__ = ["package", "SubApplication","model3D"]
+__all__ = ["package", "SubApplication","icons","image"]

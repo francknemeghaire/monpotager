@@ -4,14 +4,15 @@ import sys
 
 from PySide6.QtCore import QSize
 from PySide6.QtGui import QAction, QIcon
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QApplication, QMainWindow, QToolBar
 
 from package import fonctions, bdd
-from SubApplication import fenetreapropos, AffichageListingBdd, rechercheinternet, vision3D, calendrier, FENajoutplantes
+from SubApplication import fenetreapropos, FENresultatsrecherche, rechercheinternet, calendrier, FENajoutplantes, Fenaffichagebasededonnee
 
 
 
 basedir = os.path.dirname(__file__)
+icons = os.path.join(basedir, "icons")
 def repertoirebdd():
     repertoire = os.path.join(basedir,"./plantes")
     return repertoire
@@ -24,59 +25,56 @@ class MainWindow(QMainWindow):
         self.setGeometry(0,0,800,200)
 
         #ajout de plante
-        BTNplanteajoutee = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"Gestion base de données de plantes", self, )
+        BTNplanteajoutee = QAction(QIcon(os.path.join(icons, "database.png")),"Gestion base de données de plantes", self, )
         BTNplanteajoutee.triggered.connect(self.affichagefenetreajoutdeplante)
-        BTNplanteajoutee.setCheckable(False)
+        BTNplanteajoutee.setCheckable(True)
         #menu édition recherche internet
-        BTNrechercheinternet = QAction(QIcon(os.path.join(basedir, "icons/box.png")),"recherche internet", self, )
+        BTNrechercheinternet = QAction(QIcon(os.path.join(basedir, "icons/icons8-google-48.png")),"recherche internet", self, )
         BTNrechercheinternet.triggered.connect(self.rechercheinternet)
-        BTNrechercheinternet.setCheckable(False)
+        BTNrechercheinternet.setCheckable(True)
         #affichage de plante
-        BTNaffichagelistingplante = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Affichage des plantes de la base de données", self, )
+        BTNaffichagelistingplante = QAction(QIcon(os.path.join(basedir, "icons/database.png")), "Affichage des plantes de la base de données", self, )
         BTNaffichagelistingplante.triggered.connect(self.affichagelstplante)
-        BTNaffichagelistingplante.setCheckable(False)
+        BTNaffichagelistingplante.setCheckable(True)
         #recherche par nom
-        BTNrechercheparnom = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par nom", self, )
+        BTNrechercheparnom = QAction(QIcon(os.path.join(basedir, "icons/icons8-search-48.png")), "Recherche par nom", self, )
         BTNrechercheparnom.triggered.connect(self.rechercheparnom)
-        BTNrechercheparnom.setCheckable(False)
+        BTNrechercheparnom.setCheckable(True)
         #recherche par taille
-        BTNrecherchepartaille = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par taille", self, )
+        BTNrecherchepartaille = QAction(QIcon(os.path.join(basedir, "icons/icons8-search-48.png")), "Recherche par taille", self, )
         BTNrecherchepartaille.triggered.connect(self.recherchepartaille)
-        BTNrecherchepartaille.setCheckable(False)
+        BTNrecherchepartaille.setCheckable(True)
         #recherche par association
-        BTNrechercheparassociation = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par association", self, )
+        BTNrechercheparassociation = QAction(QIcon(os.path.join(basedir, "icons/icons8-search-48.png")), "Recherche par association", self, )
         BTNrechercheparassociation.triggered.connect(self.rechercheparassociation)
-        BTNrechercheparassociation.setCheckable(False)
+        BTNrechercheparassociation.setCheckable(True)
         #recherche par saison de plantation
-        BTNrechercheparsaison = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Recherche par saison de plantation", self,)
+        BTNrechercheparsaison = QAction(QIcon(os.path.join(basedir, "icons/icons8-search-48.png")), "Recherche par saison de plantation", self,)
         BTNrechercheparsaison.triggered.connect(self.rechercheparsaison)
-        BTNrechercheparsaison.setCheckable(False)
+        BTNrechercheparsaison.setCheckable(True)
         #affichage fenetre d'infos appli
-        BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "A propos...", self,)
+        BTNapropos = QAction(QIcon(os.path.join(basedir, "icons/icons8-question-48.png")), "A propos...", self,)
         BTNapropos.triggered.connect(self.affichageapropos)
-        BTNapropos.setCheckable(False)
+        BTNapropos.setCheckable(True)
         # bouton lié à la planification et organisation
         BTNcalendrierjardin = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Calendrier du jardin", self,)
         BTNcalendrierjardin.triggered.connect(self.calendrierjardin)
-        BTNcalendrierjardin.setCheckable(False)
+        BTNcalendrierjardin.setCheckable(True)
         BTNgestiontaches = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Gestion des tâches", self,)
         BTNgestiontaches.triggered.connect(self.gestiontaches)
-        BTNgestiontaches.setCheckable(False)
+        BTNgestiontaches.setCheckable(True)
         BTNdiagnostictraitement = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Diagnostic et traitement", self, )
         BTNdiagnostictraitement.triggered.connect(self.DiagnosticTraitement)
-        BTNdiagnostictraitement.setCheckable(False)
-        BTNvisualisation3D = QAction(QIcon(os.path.join(basedir, "icons/box.png")), "Visualisation", self, )
-        BTNvisualisation3D.triggered.connect(self.Visualisation3D)
-        BTNvisualisation3D.setCheckable(False)
+        BTNdiagnostictraitement.setCheckable(True)
         # ajout d'un menu
 
         menu = self.menuBar()
         #les différents menus de l'appli
         MNUGestion = menu.addMenu("Gestion")
-        MNUVisualisation = menu.addMenu("Visualisation")
         MNUPlanification = menu.addMenu("Planification")
         MNUOrganisation = menu.addMenu("Organisation")
         MNUSanteEntretien = menu.addMenu("Santé et Entretien")
+        MNURecherche = menu.addMenu("Recherche")
 
         MNUaide = menu.addMenu("Aide")
         #les différents choix dans chaque menu
@@ -88,9 +86,8 @@ class MainWindow(QMainWindow):
         MNUGestion.addAction(BTNrecherchepartaille)
         MNUGestion.addAction(BTNrechercheparassociation)
         MNUGestion.addAction(BTNrechercheparsaison)
-        MNUVisualisation.addAction(BTNrechercheinternet)
-        MNUVisualisation.addSeparator()
-        MNUVisualisation.addAction(BTNvisualisation3D)
+        MNURecherche.addAction(BTNrechercheinternet)
+        MNURecherche.addSeparator()
         MNUPlanification.addAction(BTNcalendrierjardin)
         MNUOrganisation.addAction(BTNgestiontaches)
         MNUOrganisation.addSeparator()
@@ -106,7 +103,8 @@ class MainWindow(QMainWindow):
         toolbar.addAction(TLBquit)
 
     def affichagefenetreajoutdeplante(self, checked):
-        self.FENajoutplante = FENajoutplantes.Fenetreajoutplante(repertoire=basedir)
+        #création d'une nouvelle fiche de plante
+        self.FENajoutplante = FENajoutplantes.Fenetreajoutplante()
         self.FENajoutplante.show()
 
     def affichageapropos(self, checked):
@@ -114,7 +112,8 @@ class MainWindow(QMainWindow):
         self.FENapropos.show()
 
     def affichagelstplante(self, checked):
-        self.FENlstplante = AffichageListingBdd.AffichagelistingBdd()
+        #self.FENlstplante = AffichageListingBdd.AffichagelistingBdd()
+        self.FENlstplante = Fenaffichagebasededonnee.Affichagebasededonnee()
         self.FENlstplante.show()
 
     def rechercheparnom(self, checked):
@@ -151,21 +150,10 @@ class MainWindow(QMainWindow):
     def DiagnosticTraitement(self, checked):
         pass
         # fin de la section du menu
-# visualisation 3D
-    def Visualisation3D(self, checked):
-        self.FENvisualisation = vision3D.GardenApp()
-        self.FENvisualisation.run()
-
-        def closeEvent(self, event):
-            self.FENvisualisation.close()
-            # Arrêter le moteur Panda3D
-            #base.destroy()
-            # Fermer d'autres ressources si nécessaire
-            # ...
-            #event.accept()
 
 bdd.creationBDD()
 app = QApplication(sys.argv)
+app.setStyle('Fusion')
 window = MainWindow()
 window.show()
 app.exec()
