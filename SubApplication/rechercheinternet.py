@@ -11,6 +11,7 @@ class rechercheinternet(QMainWindow):
         self.widget = QWidget(self)
         self.FNTWEB = QWebEngineView()
         self.FNTWEB.load(QUrl("https://www.google.be/search?q="+self.critere+"&hl=fr"))
+        #https://www.perplexity.ai/search/
         self.FNTWEB.urlChanged.connect(self.url_changed)
         self.setGeometry(0,0,1024,768)
         self.show()
