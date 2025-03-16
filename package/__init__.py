@@ -1,1 +1,1 @@
-__all__ = ["fonctions", "bdd", "requetesql"]
+__all__ = ["fonctions", "bdd", "requetesql", "AffichageListingBdd"]
