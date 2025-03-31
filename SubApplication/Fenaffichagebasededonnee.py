@@ -1,11 +1,18 @@
 #importation des lib
 import os
 import sys
-import sqlite3
+#import sqlite3
 
-from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QAction, QIcon
-from PySide6.QtWidgets import *
+#from PySide6.QtCore import QSize, Qt
+#from PySide6.QtGui import QAction, QIcon
+#from PySide6.QtWidgets import *
+import sqlite3
+#from PyQt6 import QtWidgets
+#from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtWidgets import QMainWindow, QToolBar, QMenu, QTableWidget, QTableWidgetItem
+from PyQt6.QtWidgets import QWidget, QGridLayout, QHBoxLayout
 
 from SubApplication import FENresultatsrecherche
 from package import requetesql, fonctions
@@ -33,28 +40,34 @@ class Affichagebasededonnee(QMainWindow):
         toolbar.addAction(TLBquit)
         #listwidget avec menu contextuel?
 
-        self.listeplante = QListWidget()
+        self.listeplante = QTableWidget()
+        self.listeplante.setColumnCount(22)
+        for colonne in range(22):
+            self.listeplante.setColumnWidth(colonne, 150)
+        self.listeplante.setHorizontalHeaderLabels(["id","Nom", "Envergure", "Hauteur", "Exposition", "Date de semis", "Date de plantation", "Durée de vie", "Type d'arrosage", "Type de sol", "Association", "Température de germination", "Type de plante", "Couleur", "Emplacement", "Feuillage persistant", "Mellifère", "Mois de floraison", "Mois de récolte", "Plante parfumée", "Plante vivace", "Chemin d'accès image"])
+        self.listeplante.setSortingEnabled(True)
         self.loaddata()
         layoutGauche.addWidget(self.listeplante, 0, 0)
-
+        self.listeplante.setSortingEnabled(True)
+        self.listeplante.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.listeplante.customContextMenuRequested.connect(self.contextMenuEvent)
         # ajout du layout à widget
         widget.setLayout(layoutPrincipal)
         self.setCentralWidget(widget)
-        self.resize(500, 500)
+        self.resize(800, 800)
 
     def loaddata(self):
         connection = sqlite3.connect('plantes.db')
         cur = connection.cursor()
-        sqlstr = 'SELECT * FROM plantes'
+        sqlstr = 'SELECT * FROM plantes ORDER BY id'
 
         tablerow = 0
         results = cur.execute(sqlstr)
+        self.listeplante.setRowCount(requetesql.tailledelabdd())
         for row in results:
-                self.listeplante.addItem(str(row[1]))
-                tablerow += 1
-        self.listeplante.setSortingEnabled(True)
-        self.listeplante.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.listeplante.customContextMenuRequested.connect(self.contextMenuEvent)
+            for colonnes in range(22):
+                self.listeplante.setItem(tablerow, colonnes, QTableWidgetItem(str(row[colonnes])))
+            tablerow += 1
 
     def contextMenuEvent(self, e):
         context = QMenu()
@@ -77,7 +90,7 @@ class Affichagebasededonnee(QMainWindow):
 
     def modifierlafiche(self):
         #self.FENrecherchefiche = FENresultatsrecherche.FENresultatsrecherche(nomdelaplante=self.listeplante.selectedItems()[0].text())
-        self.FENmodifierfiche = fonctions.modifierFichePlante()
+        self.FENmodifierfiche = fonctions.modifierFichePlante(id=self.listeplante.item(self.listeplante.currentRow(), 0).text())
         self.FENmodifierfiche.show()
 
     def imprimerlafiche(self):
