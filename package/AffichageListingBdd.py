@@ -27,7 +27,7 @@ class AffichagelistingBdd(QDialog):
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
             for colonnes in range(21):
-                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
+                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(row['nom']))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
         self.tableWidget.cellClicked.connect(self.cellClicked)

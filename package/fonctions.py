@@ -3,6 +3,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 import sqlite3
+from package import requetesql
 
 
 class Plante:
@@ -31,16 +32,17 @@ class Plante:
         self.plantevivace = 0
         self.cheminaccesimage = ""
 
+Plantemodifiee = Plante()
+tamponplantes = []
 
-
-    def parcourirlabasededonnee(self):
-        connection = sqlite3.connect("plantes.db")
-        cursor = connection.cursor()
-        sqlstr = 'SELECT * FROM plantes'
-        plantedelabdd = cursor.execute(sqlstr)
-        donnees = plantedelabdd.fetchall()
-        for plante in donnees:
-            print(plante)
+#def parcourirlabasededonnee(self):
+#        connection = sqlite3.connect("plantes.db")
+#        cursor = connection.cursor()
+#        sqlstr = 'SELECT * FROM plantes'
+#        plantedelabdd = cursor.execute(sqlstr)
+#        donnees = plantedelabdd.fetchall()
+#        for plante in donnees:
+#            print(plante)
 
 
 class apercuphoto(QWidget):
@@ -56,8 +58,11 @@ class apercuphoto(QWidget):
         self.setLayout(layout)
 
 class modifierFichePlante(QMainWindow):
-    def __init__(self):
+    def __init__(self, id):
         super().__init__()
+        self.id_plante = id
+        self.setWindowTitle("Modifier une fiche plante")
+        self.setGeometry(100, 100, 800, 600)
         widget = QWidget()
         layoutPrincipal = QHBoxLayout(widget)
         layoutGauche = QGridLayout(widget)
@@ -70,57 +75,84 @@ class modifierFichePlante(QMainWindow):
         TLBquit = QAction(QIcon(os.path.join("icons", "exit.png")), "Quitter", self)
         TLBquit.triggered.connect(self.close)
         toolbar.addAction(TLBquit)
-
+        TLBadd = QAction(QIcon(os.path.join("icons", "plus.png")), "Ajouter", self)
+        TLBadd.triggered.connect(self.modifierplante)
+        toolbar.addAction(TLBadd)
+        #
+        # lire l'id de la plante pour afficher les données dans les champs
+        connection = sqlite3.connect("plantes.db")
+        cursor = connection.cursor()
+        sqlstr = 'SELECT * FROM plantes WHERE id = ?'
+        plantedelabdd = cursor.execute(sqlstr, (self.id_plante,))
+        for row in plantedelabdd:
+            print(row[1])
+        #self.PlanteAModifier = self.import_bdd_data(self.id_plante)
+        # mettre les données dans les champs
+        #
         self.LBLid = QLabel("id de la plante?: ")
-        self.LEid = QLineEdit()
+        self.LEid = QLineEdit(str(self.id_plante))
+        self.LEid.setReadOnly(True)
         self.LBLnom = QLabel("Quel est le nom de la plante? ")
-        self.LEnom = QLineEdit()
+        self.LEnom = QLineEdit(row[1])
         self.LBLenvergure = QLabel("Quelle est son envergure? ")
-        self.LEenvg = QLineEdit()
+        self.LEenvg = QLineEdit(str(row[2]))
         self.LBLht = QLabel("Quelle est la hauteur de la plante? ")
-        self.LEht = QLineEdit()
+        self.LEht = QLineEdit(str(row[3]))
         self.LBLexpo = QLabel("A quelle exposition peut on la planter (ombre, mi-ombre, etc): ")
-        self.LEexpo = QLineEdit()
+        self.LEexpo = QLineEdit(row[4])
         self.LBLdatesemis = QLabel("Quand peut-on débuter les semis: ")
-        self.LEdatesemis = QLineEdit()
+        self.LEdatesemis = QLineEdit(row[5])
         self.LBLdateplantation = QLabel("Quand peut on les mettre en pleine terre: ")
-        self.LEdateplantation = QLineEdit()
+        self.LEdateplantation = QLineEdit(row[6])
         self.LBLduree = QLabel("combien de temps occupe-t-il l'espace octroyer dans le jardin? ")
-        self.LEduree = QLineEdit()
+        self.LEduree = QLineEdit(str(row[7]))
         self.LBLarrosage = QLabel("Quel est son besoin en eau? ")
-        self.LEarrosage = QLineEdit()
+        self.LEarrosage = QLineEdit(row[8])
         self.LBLsol = QLabel("Quelle doit être la richesse du sol? ")
-        self.LEsol = QLineEdit()
+        self.LEsol = QLineEdit(row[9])
         self.LBLassoc = QLabel("Avec quelles autres plantes peut-on l'associer? ")
-        self.LEassoc = QLineEdit()
+        self.LEassoc = QLineEdit(row[10])
         self.LBLtempgerm = QLabel("Quelle est la température de germination? ")
-        self.LEtempgerm = QLineEdit()
+        self.LEtempgerm = QLineEdit(str(row[11]))
         # ajout caractéristique supplémentaires 8/5/24
         self.LBLtypedeplante = QLabel("Quelle type de plante est-ce ? ")
-        self.LEtypedeplante = QLineEdit()
+        self.LEtypedeplante = QLineEdit(row[12])
         self.LBLcouleurdeplante = QLabel("Quelle est la couleur de la plante ?")
-        self.LEcouleurdeplante = QLineEdit()
+        self.LEcouleurdeplante = QLineEdit(row[13])
         self.LBLemplacement = QLabel("Où va-t-on placer cette plante? ")
-        self.LEemplacement = QLineEdit()
+        self.LEemplacement = QLineEdit(row[14])
         self.LBLfeuillagepersistant = QLabel("Est-ce une plante avec un feuillage persistant ?")
+        #row[15] = 1 si oui, 0 si non
         self.CHKBOXfeuillagepersistant = QCheckBox()
-        self.CHKBOXfeuillagepersistant.setChecked(False)
+        if row[15] == 1:
+            self.CHKBOXfeuillagepersistant.setChecked(True)
+        else:
+            self.CHKBOXfeuillagepersistant.setChecked(False)
         self.LBLmellifere = QLabel("Est-ce un mellifère ?")
         self.CHKBOXmellifere = QCheckBox()
-        self.CHKBOXmellifere.setChecked(False)
+        if row[16] == 1:
+            self.CHKBOXmellifere.setChecked(True)
+        else:
+            self.CHKBOXmellifere.setChecked(False)
         self.LBLmoisdefloraison = QLabel("Quelle est la mois de floraison ?")
-        self.LEmoisdefloraison = QLineEdit()
+        self.LEmoisdefloraison = QLineEdit(row[17])
         self.LBLmoisderecolte = QLabel("Quel est le mois de recolte ?")
-        self.LEmoisderecolte = QLineEdit()
+        self.LEmoisderecolte = QLineEdit(row[18])
         self.LBLplanteparfumee = QLabel("La plante est-elle parfumée ?")
         self.CHKBOXplanteparfumee = QCheckBox()
-        self.CHKBOXplanteparfumee.setChecked(False)
+        if row[19] == 1:
+            self.CHKBOXplanteparfumee.setChecked(True)
+        else:
+            self.CHKBOXplanteparfumee.setChecked(False)
         self.LBLplantevivace = QLabel("Est-ce une plante vivace ?")
         self.CHKBOXplantevivace = QCheckBox()
-        self.CHKBOXplantevivace.setChecked(False)
+        if row[20] == 1:
+            self.CHKBOXplantevivace.setChecked(True)
+        else:
+            self.CHKBOXplantevivace.setChecked(False)
         # partie du code pour traitement des photos
         self.LBLcheminaccesimage = QLabel("chemin d'accès de la photo ?")
-        self.LEcheminaccesimage = QLineEdit()
+        self.LEcheminaccesimage = QLineEdit(row[21])
 
         # ajout widget layout gauche
         layoutGauche.addWidget(self.LBLid, 0, 0)
@@ -172,4 +204,31 @@ class modifierFichePlante(QMainWindow):
         # ajout boutons au layout droit
         widget.setLayout(layoutPrincipal)
         self.setCentralWidget(widget)
-        self.resize(1280, 1024)
+    
+    def modifierplante(self):
+        # ajouter la plante au tampon avant la sauvegarde dans la BDD
+        Plantemodifiee.nom = self.LEnom.text()
+        Plantemodifiee.hauteur = self.LEht.text()
+        Plantemodifiee.envergure = self.LEenvg.text()
+        Plantemodifiee.exposition = self.LEexpo.text()
+        Plantemodifiee.datedesemis = self.LEdatesemis.text()
+        Plantemodifiee.datedeplantation = self.LEdateplantation.text()
+        Plantemodifiee.duree = self.LEduree.text()
+        Plantemodifiee.arrosage = self.LEarrosage.text()
+        Plantemodifiee.typesol = self.LEsol.text()
+        Plantemodifiee.associations = self.LEassoc.text()
+        Plantemodifiee.temperaturegermination = self.LEtempgerm.text()
+        Plantemodifiee.type = self.LEtypedeplante.text()
+        Plantemodifiee.couleur = self.LEcouleurdeplante.text()
+        Plantemodifiee.emplacement = self.LEemplacement.text()
+        Plantemodifiee.feuillagepersistant = self.CHKBOXfeuillagepersistant.isEnabled()
+        Plantemodifiee.mellifere = self.CHKBOXmellifere.isEnabled()
+        Plantemodifiee.moisdefloraison = self.LEmoisdefloraison.text()
+        Plantemodifiee.moisderecolte = self.LEmoisderecolte.text()
+        Plantemodifiee.planteparfumee = self.CHKBOXplanteparfumee.isEnabled()
+        Plantemodifiee.plantevivace = self.CHKBOXplantevivace.isEnabled()
+        Plantemodifiee.cheminaccesimage = self.LEcheminaccesimage.text()
+        id_de_bdd = self.LEid.text()
+        #tamponplantes.append((Plantemodifiee.nom, Plantemodifiee.hauteur, Plantemodifiee.envergure, Plantemodifiee.exposition, Plantemodifiee.datedesemis, Plantemodifiee.datedeplantation, Plantemodifiee.duree, Plantemodifiee.arrosage, Plantemodifiee.typesol, Plantemodifiee.associations, Plantemodifiee.temperaturegermination, Plantemodifiee.type, Plantemodifiee.couleur, Plantemodifiee.emplacement, Plantemodifiee.feuillagepersistant, Plantemodifiee.mellifere, Plantemodifiee.moisdefloraison, Plantemodifiee.moisderecolte, Plantemodifiee.planteparfumee, Plantemodifiee.plantevivace, Plantemodifiee.cheminaccesimage, id_de_bdd))
+        requetesql.modification_fiche(Plantemodifiee.nom, Plantemodifiee.hauteur, Plantemodifiee.envergure, Plantemodifiee.exposition, Plantemodifiee.datedesemis, Plantemodifiee.datedeplantation, Plantemodifiee.duree, Plantemodifiee.arrosage, Plantemodifiee.typesol, Plantemodifiee.associations, Plantemodifiee.temperaturegermination, Plantemodifiee.type, Plantemodifiee.couleur, Plantemodifiee.emplacement, Plantemodifiee.feuillagepersistant, Plantemodifiee.mellifere, Plantemodifiee.moisdefloraison, Plantemodifiee.moisderecolte, Plantemodifiee.planteparfumee, Plantemodifiee.plantevivace, Plantemodifiee.cheminaccesimage, id_de_bdd)
+        #tamponplantes.clear()

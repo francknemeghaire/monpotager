@@ -45,8 +45,8 @@ def creationBDD():
               [emplacement] TEXT,
               [feuillagepersistant] INTEGER,
               [mellifere] INTEGER,
-              [moisdefloraison] INTEGER,
-              [moisderecolte] INTEGER,
+              [moisdefloraison] TEXT,
+              [moisderecolte] TEXT,
               [planteparfumee] INTEGER,
               [plantevivace] INTEGER,
               [cheminaccesimage] TEXT 
