@@ -27,7 +27,7 @@ class AffichagelistingBdd(QDialog):
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
             for colonnes in range(21):
-                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(str(row[colonnes])))
+                self.tableWidget.setItem(tablerow, colonnes, QtWidgets.QTableWidgetItem(row['nom']))
             tablerow += 1
         self.tableWidget.setSortingEnabled(True)
         self.tableWidget.cellClicked.connect(self.cellClicked)
@@ -50,10 +50,9 @@ class AffichageParNom(QDialog):
     def loaddata(self, param):
         connection = sqlite3.connect('plantes.db')
         cur = connection.cursor()
-        sqlstr = 'SELECT * FROM plantes WHERE nom = (?)'
 
         tablerow = 0
-        results = cur.execute(sqlstr, (param,))
+        results = cur.execute("SELECT * FROM plantes WHERE nom LIKE ?", (param+'%',))
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for row in results:
             for colonnes in range(21):
@@ -96,14 +95,9 @@ class AffichageParAssociation(QDialog):
     def loaddata(self, param):
         connection = sqlite3.connect('plantes.db')
         cur = connection.cursor()
-        sqlstr = 'SELECT * FROM plantes WHERE association = (?)'
         tablerow = 0
-        results = cur.execute(sqlstr, (param,))
-        #association => colonne 10 => tuple !!!
+        results = cur.execute("SELECT * FROM plantes WHERE association LIKE ?", (param+'%',))
         data = results.fetchall()
-        # tri de data / param
-        # sauvegarder le tri? avec sqlite? un tuple?
-        #afficher les données triées
         self.tableWidget.setRowCount(requetesql.tailledelabdd())
         for nbrchamp in range(0, len(data)):
             if data[nbrchamp][9] == param:
