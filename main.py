@@ -6,8 +6,8 @@ from PySide6.QtCore import QSize
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow, QToolBar
 
-from package import fonctions, bdd
-from SubApplication import fenetreapropos, FENresultatsrecherche, rechercheinternet, calendrier, FENajoutplantes, Fenaffichagebasededonnee
+from package import fonctions, bdd, AffichageListingBdd
+from SubApplication import fenetreapropos, FENresultatsrecherche, rechercheinternet, calendrier, FENajoutplantes, Fenaffichagebasededonnee,gestiondestaches
 
 
 
@@ -112,7 +112,6 @@ class MainWindow(QMainWindow):
         self.FENapropos.show()
 
     def affichagelstplante(self, checked):
-        #self.FENlstplante = AffichageListingBdd.AffichagelistingBdd()
         self.FENlstplante = Fenaffichagebasededonnee.Affichagebasededonnee()
         self.FENlstplante.show()
 
@@ -144,14 +143,17 @@ class MainWindow(QMainWindow):
         self.FENcalendrier.show()
 # gestion des tâches
     def gestiontaches(self, checked):
-        #creer une interface en lien avec le calendrier?
-        pass
+        self.FENgestiontaches = gestiondestaches.GestionDesTaches()
+        self.FENgestiontaches.show()
+        
 # diagnostic et traitement
     def DiagnosticTraitement(self, checked):
         pass
         # fin de la section du menu
 
 bdd.creationBDD()
+bdd.creationbddtaches()
+#creation de la base de données
 app = QApplication(sys.argv)
 app.setStyle('Fusion')
 window = MainWindow()
