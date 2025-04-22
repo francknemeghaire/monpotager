@@ -54,3 +54,58 @@ def creationBDD():
               ''')
     connection.commit()
     connection.close()
+
+def creationbddtaches():
+    # connexion à la base de données
+    connection = sqlite3.connect("taches.db")
+    c = connection.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS taches
+              ([id] INTEGER PRIMARY KEY AUTOINCREMENT,
+              [nom] TEXT,
+              [date] TEXT,
+              [heure] TEXT,
+              [description] TEXT,
+              [priorite] INTEGER
+              )
+              ''')
+    connection.commit()
+    connection.close()
+def creationbdddiagnostic():
+    # connexion à la base de données
+    connection = sqlite3.connect("diagnostic.db")
+    c = connection.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS diagnostic
+              ([id] INTEGER PRIMARY KEY AUTOINCREMENT,
+              [nom] TEXT,
+              [symptome] TEXT,
+              [solution] TEXT
+              )
+              ''')
+    connection.commit()
+    connection.close()
+def creationbddcalendrier():
+    # connexion à la base de données
+    connection = sqlite3.connect("calendrier.db")
+    c = connection.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS calendrier
+              ([id] INTEGER PRIMARY KEY AUTOINCREMENT,
+              [nom] TEXT,
+              [date] TEXT,
+              [description] TEXT
+              )
+              ''')
+    connection.commit()
+    connection.close()
+def creationbddhistorique():
+    # connexion à la base de données
+    connection = sqlite3.connect("historique.db")
+    c = connection.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS historique
+              ([id] INTEGER PRIMARY KEY AUTOINCREMENT,
+              [nom] TEXT,
+              [date] TEXT,
+              [description] TEXT
+              )
+              ''')
+    connection.commit()
+    connection.close()

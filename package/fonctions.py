@@ -4,6 +4,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 import sqlite3
 from package import requetesql
+from SubApplication import Fenaffichagebasededonnee
 
 
 class Plante:
@@ -33,7 +34,6 @@ class Plante:
         self.cheminaccesimage = ""
 
 Plantemodifiee = Plante()
-tamponplantes = []
 
 #def parcourirlabasededonnee(self):
 #        connection = sqlite3.connect("plantes.db")
@@ -229,6 +229,6 @@ class modifierFichePlante(QMainWindow):
         Plantemodifiee.plantevivace = self.CHKBOXplantevivace.isEnabled()
         Plantemodifiee.cheminaccesimage = self.LEcheminaccesimage.text()
         id_de_bdd = self.LEid.text()
-        #tamponplantes.append((Plantemodifiee.nom, Plantemodifiee.hauteur, Plantemodifiee.envergure, Plantemodifiee.exposition, Plantemodifiee.datedesemis, Plantemodifiee.datedeplantation, Plantemodifiee.duree, Plantemodifiee.arrosage, Plantemodifiee.typesol, Plantemodifiee.associations, Plantemodifiee.temperaturegermination, Plantemodifiee.type, Plantemodifiee.couleur, Plantemodifiee.emplacement, Plantemodifiee.feuillagepersistant, Plantemodifiee.mellifere, Plantemodifiee.moisdefloraison, Plantemodifiee.moisderecolte, Plantemodifiee.planteparfumee, Plantemodifiee.plantevivace, Plantemodifiee.cheminaccesimage, id_de_bdd))
+        # sauvegarde de la plante dans la BDD
         requetesql.modification_fiche(Plantemodifiee.nom, Plantemodifiee.hauteur, Plantemodifiee.envergure, Plantemodifiee.exposition, Plantemodifiee.datedesemis, Plantemodifiee.datedeplantation, Plantemodifiee.duree, Plantemodifiee.arrosage, Plantemodifiee.typesol, Plantemodifiee.associations, Plantemodifiee.temperaturegermination, Plantemodifiee.type, Plantemodifiee.couleur, Plantemodifiee.emplacement, Plantemodifiee.feuillagepersistant, Plantemodifiee.mellifere, Plantemodifiee.moisdefloraison, Plantemodifiee.moisderecolte, Plantemodifiee.planteparfumee, Plantemodifiee.plantevivace, Plantemodifiee.cheminaccesimage, id_de_bdd)
-        #tamponplantes.clear()
+        self.close()
