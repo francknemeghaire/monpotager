@@ -55,3 +55,33 @@ def modification_fiche(nom, envergure, hauteur, exposition, datedesemi, datedepl
         print(e)
 
 
+def maj_bdd_taches(cache):
+    connection = sqlite3.connect("taches.db")
+    cursor = connection.cursor()
+    requetesql = "insert into taches(nom, date, heure, description, priorite) VALUES (?, ?, ?, ?, ?)"
+    cursor.executemany(requetesql, cache)
+    connection.commit()
+    connection.close()
+
+def tailledelabddtache():
+    connection = sqlite3.connect("taches.db")
+    cursor = connection.cursor()
+    cursor.execute("SELECT COUNT(*) FROM taches")
+    record_count = cursor.fetchone()[0]
+    cursor.close()
+    connection.close()
+    return record_count
+
+def supprimer_tache(id):
+    connection = sqlite3.connect("taches.db")
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM taches WHERE id = ?", (id,))
+    connection.commit()
+    connection.close()
+
+def modifier_tache(id, nom, date, heure, description, priorite):
+    connection = sqlite3.connect("taches.db")
+    cursor = connection.cursor()
+    cursor.execute("UPDATE taches SET nom = ?, date = ?, heure = ?, description = ?, priorite = ? WHERE id = ?", (nom, date, heure, description, priorite, id))
+    connection.commit()
+    connection.close()
