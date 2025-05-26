@@ -1,11 +1,7 @@
 #importation des lib
 import os
 import sys
-#import sqlite3
 
-#from PySide6.QtCore import QSize, Qt
-#from PySide6.QtGui import QAction, QIcon
-#from PySide6.QtWidgets import *
 import sqlite3
 #from PyQt6 import QtWidgets
 #from PyQt6.QtWidgets import *
@@ -91,6 +87,7 @@ class Affichagebasededonnee(QMainWindow):
     def modifierlafiche(self):
         #self.FENrecherchefiche = FENresultatsrecherche.FENresultatsrecherche(nomdelaplante=self.listeplante.selectedItems()[0].text())
         self.FENmodifierfiche = fonctions.modifierFichePlante(id=self.listeplante.item(self.listeplante.currentRow(), 0).text())
+        self.close()
         self.FENmodifierfiche.show()
 
     def imprimerlafiche(self):

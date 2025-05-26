@@ -103,7 +103,6 @@ class Fenetreajoutplante(QMainWindow):
         #partie du code pour traitement des photos
         self.LBLcheminaccesimage = QLabel("chemin d'accès de la photo ?")
         self.LEcheminaccesimage = QLineEdit()
-        self.TBLWIDGETplanteparnom = FENresultatsrecherche.FENresultatsrecherche()
 
         # ajout widget layout gauche
         layoutGauche.addWidget(self.LBLnom, 0, 0)
@@ -149,7 +148,6 @@ class Fenetreajoutplante(QMainWindow):
         layoutGauche.addWidget(self.CHKBOXplantevivace, 19, 1)
         layoutGauche.addWidget(self.LBLcheminaccesimage, 20, 0)
         layoutGauche.addWidget(self.LEcheminaccesimage, 20, 1)
-        layoutGauche.addWidget(self.TBLWIDGETplanteparnom, 21, 0)
         #layoutGauche.setVerticalSpacing(5)
 
 
