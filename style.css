@@ -3,28 +3,6 @@ h1 {
     font: "Verdana", sans-serif;
     text-align: center;
 }
-.d1{
-    width: 400px;
-    height: 400px;
-    margin: 50px auto; 
-    box-shadow: Opx 15px 10px 5px #fbfbfc;
-    background-color: white;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    animation: fondu 15s linear infinite both;
-}
-
-@keyframes fondu {
-    0% {background-image: url("annie-spratt-VviNSpJuGj0-unsplash.jpg");}
-    33.33% {background-image: url("markus-spiske-sFydXGrt5OA-unsplash.jpg");}
-    66.67% {background-image: url("michael-olsen-CBrjgZ53NOs-unsplash.jpg");}
-    100% {background-image: url("victor-malyushev-w_N-XCjiM0o-unsplash.jpg");}
-}
-
-.d1:hover{
-    animation-play-state: paused;
-}
 
 body {
     background-color: white;
@@ -44,5 +22,5 @@ body {
     height: 100%;
     padding: 10px;
     margin: 10px;
-    text-align: center;
+    text-align: left;
 }
