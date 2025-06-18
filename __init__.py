@@ -1,1 +1,1 @@
-__all__ = ["package", "SubApplication","icons","image"]
+__all__ = ["package", "SubApplication","icons","image","fiche_plante"]
