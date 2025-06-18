@@ -71,9 +71,12 @@ class Affichagebasededonnee(QMainWindow):
         action_recherche_internet.triggered.connect(self.recherchersurinternet)
         action_recherche_fiche = context.addAction("Rechercher/modifier la fiche")
         action_recherche_fiche.triggered.connect(self.modifierlafiche)
+        action_impression_pdf = context.addAction("Imprimer la fiche en PDF")
+        action_impression_pdf.triggered.connect(self.imprimerlafiche)
 
         context.addAction(action_recherche_internet)
         context.addAction(action_recherche_fiche)
+        context.addAction(action_impression_pdf)
         # context.addAction(QAction("impression de la fiche", self))
         context.exec(self.listeplante.mapToGlobal(e))
 
@@ -91,4 +94,4 @@ class Affichagebasededonnee(QMainWindow):
         self.FENmodifierfiche.show()
 
     def imprimerlafiche(self):
-        pass
+        fonctions.impressionenpdf()
