@@ -5,6 +5,11 @@ from PySide6.QtCore import *
 import sqlite3
 from package import requetesql
 from SubApplication import Fenaffichagebasededonnee
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.styles import getSampleStyleSheet
+
 
 
 class Plante:
@@ -232,3 +237,26 @@ class modifierFichePlante(QMainWindow):
         # sauvegarde de la plante dans la BDD
         requetesql.modification_fiche(Plantemodifiee.nom, Plantemodifiee.hauteur, Plantemodifiee.envergure, Plantemodifiee.exposition, Plantemodifiee.datedesemis, Plantemodifiee.datedeplantation, Plantemodifiee.duree, Plantemodifiee.arrosage, Plantemodifiee.typesol, Plantemodifiee.associations, Plantemodifiee.temperaturegermination, Plantemodifiee.type, Plantemodifiee.couleur, Plantemodifiee.emplacement, Plantemodifiee.feuillagepersistant, Plantemodifiee.mellifere, Plantemodifiee.moisdefloraison, Plantemodifiee.moisderecolte, Plantemodifiee.planteparfumee, Plantemodifiee.plantevivace, Plantemodifiee.cheminaccesimage, id_de_bdd)
         self.close()
+
+# fonction d'impression
+# pour imprimer la fiche plante en pdf
+# utiliser la librairie reportlab        
+def impressionenpdf():
+        # fonction pour imprimer la fiche plante en pdf
+        # Chemin du fichier de sortie
+        pdf_file = "fiche_plante/testfiche.pdf"
+
+        # Crée le canvas (surface de dessin PDF)
+        c = canvas.Canvas(pdf_file, pagesize = A4)
+        textLines = "At last, we draw a picture on the pdf using the drawInlineImage function in which the parameters are the path of the image and the x and y coordinates of the image. In this case, the image was in the same directory as the py file, so according to the relative path, we need to write only the name of the file with the extension, if it was in some other directory, a relevant correct relative path should be used."
+        p = Paragraph(textLines, style=['Normal'])
+        # Déterminer la hauteur du texte
+        #hauteur = p.wrap(c.getFilename(), c.getPageWidth() - 200)
+        
+    
+        # Dessiner le paragraphe sur la page
+        p.drawOn(c, 100, 750 - hauteur)
+
+        c.save()
+        # Finaliser le PDF
+        c.showPage()
